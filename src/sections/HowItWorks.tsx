@@ -114,19 +114,19 @@ export default function HowItWorks() {
       {/* Sparkles decoration — лайм как акцент, не перебивает */}
       <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
         <div className="sparkle-item absolute top-[12%] left-[5%] text-lime">
-          <Sparkles size={32} className="text-lime" fill="#DDFD53" />
+          <Sparkles size={32} className="text-lime" fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[20%] right-[8%] text-lime">
-          <Sparkles size={24} className="text-lime" fill="#DDFD53" />
+          <Sparkles size={24} className="text-lime" fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[15%] left-[10%] text-lime">
-          <Sparkles size={20} className="text-lime" fill="#DDFD53" />
+          <Sparkles size={20} className="text-lime" fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[50%] right-[5%] text-lime">
-          <Sparkles size={28} className="text-lime" fill="#DDFD53" />
+          <Sparkles size={28} className="text-lime" fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[25%] right-[15%] text-lime">
-          <Sparkles size={18} className="text-lime" fill="#DDFD53" />
+          <Sparkles size={18} className="text-lime" fill="var(--lime)" />
         </div>
       </div>
 

@@ -125,25 +125,25 @@ function CTA() {
       {/* Sparkles */}
       <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
         <div className="sparkle-item absolute top-[12%] left-[8%] text-lime animate-sparkle">
-          <Sparkles size={28} fill="#DDFD53" />
+          <Sparkles size={28} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[18%] right-[10%] text-lime animate-sparkle" style={{ animationDelay: '0.5s' }}>
-          <Sparkles size={22} fill="#DDFD53" />
+          <Sparkles size={22} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[20%] left-[12%] text-lime animate-sparkle" style={{ animationDelay: '1s' }}>
-          <Sparkles size={18} fill="#DDFD53" />
+          <Sparkles size={18} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[55%] right-[6%] text-lime animate-sparkle" style={{ animationDelay: '1.5s' }}>
-          <Sparkles size={24} fill="#DDFD53" />
+          <Sparkles size={24} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[30%] right-[18%] text-lime animate-sparkle" style={{ animationDelay: '2s' }}>
-          <Sparkles size={16} fill="#DDFD53" />
+          <Sparkles size={16} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[35%] left-[5%] text-lime animate-sparkle" style={{ animationDelay: '2.5s' }}>
-          <Sparkles size={20} fill="#DDFD53" />
+          <Sparkles size={20} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[15%] right-[8%] text-lime animate-sparkle" style={{ animationDelay: '3s' }}>
-          <Sparkles size={26} fill="#DDFD53" />
+          <Sparkles size={26} fill="var(--lime)" />
         </div>
       </div>
 

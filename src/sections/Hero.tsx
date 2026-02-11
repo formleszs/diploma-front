@@ -150,19 +150,19 @@ export default function Hero({ onUploadClick }: HeroProps) {
       {/* Sparkles */}
       <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
         <div className="sparkle-item absolute top-[15%] left-[8%] text-lime animate-sparkle">
-          <Sparkles size={28} fill="#DDFD53" />
+          <Sparkles size={28} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[25%] right-[12%] text-lime animate-sparkle" style={{ animationDelay: '0.5s' }}>
-          <Sparkles size={22} fill="#DDFD53" />
+          <Sparkles size={22} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[20%] left-[15%] text-lime animate-sparkle" style={{ animationDelay: '1s' }}>
-          <Sparkles size={18} fill="#DDFD53" />
+          <Sparkles size={18} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute top-[60%] right-[8%] text-lime animate-sparkle" style={{ animationDelay: '1.5s' }}>
-          <Sparkles size={24} fill="#DDFD53" />
+          <Sparkles size={24} fill="var(--lime)" />
         </div>
         <div className="sparkle-item absolute bottom-[30%] right-[20%] text-lime animate-sparkle" style={{ animationDelay: '2s' }}>
-          <Sparkles size={16} fill="#DDFD53" />
+          <Sparkles size={16} fill="var(--lime)" />
         </div>
       </div>
 
