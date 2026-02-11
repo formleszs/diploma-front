@@ -116,27 +116,27 @@ function CTA({ onGetStartedClick }: CTAProps) {
       ref={sectionRef}
       className="relative w-full h-screen bg-violet overflow-hidden z-[60]"
     >
-      {/* Sparkles */}
-      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
-        <div className="sparkle-item absolute top-[12%] left-[8%] text-lime animate-sparkle">
+      {/* Декор: звёздочки (CTA) — z-0 чтобы всегда виден на фоне */}
+      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none z-0">
+        <div className="sparkle-item absolute top-[12%] left-[8%] text-lime opacity-75 animate-sparkle">
           <Sparkles size={28} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute top-[18%] right-[10%] text-lime animate-sparkle" style={{ animationDelay: '0.5s' }}>
+        <div className="sparkle-item absolute top-[18%] right-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.5s' }}>
           <Sparkles size={22} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute bottom-[20%] left-[12%] text-lime animate-sparkle" style={{ animationDelay: '1s' }}>
+        <div className="sparkle-item absolute bottom-[20%] left-[12%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1s' }}>
           <Sparkles size={18} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute top-[55%] right-[6%] text-lime animate-sparkle" style={{ animationDelay: '1.5s' }}>
+        <div className="sparkle-item absolute top-[55%] right-[6%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.5s' }}>
           <Sparkles size={24} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute bottom-[30%] right-[18%] text-lime animate-sparkle" style={{ animationDelay: '2s' }}>
+        <div className="sparkle-item absolute bottom-[30%] right-[18%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '2s' }}>
           <Sparkles size={16} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute top-[35%] left-[5%] text-lime animate-sparkle" style={{ animationDelay: '2.5s' }}>
+        <div className="sparkle-item absolute top-[35%] left-[5%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '2.5s' }}>
           <Sparkles size={20} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute bottom-[15%] right-[8%] text-lime animate-sparkle" style={{ animationDelay: '3s' }}>
+        <div className="sparkle-item absolute bottom-[15%] right-[8%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '3s' }}>
           <Sparkles size={26} fill="var(--lime)" />
         </div>
       </div>

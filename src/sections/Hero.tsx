@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Upload, Sparkles, FileText, Zap, BookOpen } from 'lucide-react';
+import { Upload, FileText, Zap, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -147,27 +147,27 @@ export default function Hero({ onUploadClick }: HeroProps) {
         <div className="w-[120vw] h-[120vh] blob-gradient opacity-60" />
       </div>
 
-      {/* Sparkles */}
-      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
-        <div className="sparkle-item absolute top-[15%] left-[8%] text-lime animate-sparkle">
-          <Sparkles size={28} fill="var(--lime)" />
+      {/* Декор: книжки (главный экран) — z-0 чтобы всегда виден на фоне */}
+      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none z-0">
+        <div className="sparkle-item absolute top-[15%] left-[8%] text-lime animate-sparkle opacity-75">
+          <BookOpen size={28} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute top-[25%] right-[12%] text-lime animate-sparkle" style={{ animationDelay: '0.5s' }}>
-          <Sparkles size={22} fill="var(--lime)" />
+        <div className="sparkle-item absolute top-[25%] right-[12%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '0.5s' }}>
+          <BookOpen size={22} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute bottom-[20%] left-[15%] text-lime animate-sparkle" style={{ animationDelay: '1s' }}>
-          <Sparkles size={18} fill="var(--lime)" />
+        <div className="sparkle-item absolute bottom-[20%] left-[15%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '1s' }}>
+          <BookOpen size={18} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute top-[60%] right-[8%] text-lime animate-sparkle" style={{ animationDelay: '1.5s' }}>
-          <Sparkles size={24} fill="var(--lime)" />
+        <div className="sparkle-item absolute top-[60%] right-[8%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '1.5s' }}>
+          <BookOpen size={24} fill="var(--lime)" />
         </div>
-        <div className="sparkle-item absolute bottom-[30%] right-[20%] text-lime animate-sparkle" style={{ animationDelay: '2s' }}>
-          <Sparkles size={16} fill="var(--lime)" />
+        <div className="sparkle-item absolute bottom-[30%] right-[20%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '2s' }}>
+          <BookOpen size={16} fill="var(--lime)" />
         </div>
       </div>
 
       {/* Main card — центрирование через flex */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div
           ref={cardRef}
           className="pointer-events-auto w-[86vw] max-w-[1100px] h-[64vh] bg-surface rounded-[28px] card-shadow overflow-hidden"
@@ -203,7 +203,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
               </Button>
               <a
                 href="#how-it-works"
-                className="font-label uppercase tracking-[0.08em] text-sm text-violet/85 hover:text-violet transition-colors flex items-center py-3"
+                className="font-label uppercase tracking-[0.08em] text-sm border-2 border-violet text-violet hover:bg-violet/10 hover:border-violet rounded-xl px-6 py-3 transition-all duration-300 flex items-center shrink-0"
               >
                 {t.hero.seeHowItWorks}
               </a>

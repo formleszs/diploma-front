@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { User, Bot, RotateCw } from 'lucide-react';
+import { User, Bot, RotateCw, MessageCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -105,10 +105,29 @@ export default function LiveDemo() {
       id="demo"
       className="relative w-full h-screen bg-violet overflow-hidden z-40"
     >
+      {/* Декор: сообщения/чат (демо) — z-0 чтобы точно был виден на фоне */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="sparkle-item absolute top-[14%] left-[7%] text-lime opacity-75 animate-sparkle">
+          <MessageCircle size={26} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute top-[24%] right-[9%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.5s' }}>
+          <MessageCircle size={20} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute bottom-[20%] left-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1s' }}>
+          <MessageCircle size={18} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute top-[52%] right-[5%] text-lime opacity-75">
+          <MessageCircle size={22} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute bottom-[26%] right-[14%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.5s' }}>
+          <MessageCircle size={16} fill="var(--lime)" />
+        </div>
+      </div>
+
       {/* Demo card */}
       <div
         ref={cardRef}
-        className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[1140px] h-[68vh] bg-surface rounded-[28px] card-shadow overflow-hidden"
+        className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[1140px] h-[68vh] bg-surface rounded-[28px] card-shadow overflow-hidden z-10"
       >
         <div className="flex h-full">
           {/* Left chat panel */}

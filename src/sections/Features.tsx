@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FileText, Layers, HelpCircle, ArrowRight } from 'lucide-react';
+import { FileText, Layers, HelpCircle, ArrowRight, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -86,10 +86,29 @@ export default function Features() {
       id="features"
       className="relative w-full h-screen bg-violet overflow-hidden z-30"
     >
+      {/* Декор: книжки (возможности) — z-0 чтобы точно был виден на фоне */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        <div className="sparkle-item absolute top-[12%] left-[6%] text-lime opacity-75 animate-sparkle">
+          <BookOpen size={28} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute top-[22%] right-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.4s' }}>
+          <BookOpen size={22} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute bottom-[18%] left-[8%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.8s' }}>
+          <BookOpen size={20} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute top-[55%] right-[6%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.2s' }}>
+          <BookOpen size={24} fill="var(--lime)" />
+        </div>
+        <div className="sparkle-item absolute bottom-[28%] right-[12%] text-lime opacity-75">
+          <BookOpen size={18} fill="var(--lime)" />
+        </div>
+      </div>
+
       {/* Heading */}
       <div
         ref={headingRef}
-        className="absolute top-[10vh] left-1/2 -translate-x-1/2 text-center w-[min(52vw,720px)]"
+        className="absolute top-[10vh] left-1/2 -translate-x-1/2 text-center w-[min(52vw,720px)] z-10"
       >
         <span className="font-label uppercase tracking-[0.08em] text-sm text-white/60 mb-4 block">
           {t.features.label}
@@ -102,7 +121,7 @@ export default function Features() {
       {/* Feature cards */}
       <div
         ref={cardsRef}
-        className="absolute top-[30vh] left-[6vw] right-[6vw] w-[88vw] h-[56vh] flex gap-[3vw] items-start justify-center"
+        className="absolute top-[30vh] left-[6vw] right-[6vw] w-[88vw] h-[56vh] flex gap-[3vw] items-start justify-center z-10"
         style={{ perspective: '1000px' }}
       >
         {features.map((feature, index) => (
