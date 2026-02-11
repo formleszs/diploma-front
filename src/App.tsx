@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { LanguageProvider } from '@/context/LanguageContext';
 import Navigation from '@/components/Navigation';
-import UploadModal from '@/components/UploadModal';
+import AuthModal from '@/components/AuthModal';
 import Hero from '@/sections/Hero';
 import HowItWorks from '@/sections/HowItWorks';
 import Features from '@/sections/Features';
@@ -14,7 +14,7 @@ import Footer from '@/sections/Footer';
 gsap.registerPlugin(ScrollTrigger);
 
 function App() {
-  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   useEffect(() => {
     // Wait for all ScrollTriggers to be created
@@ -72,8 +72,8 @@ function App() {
     };
   }, []);
 
-  const openUploadModal = () => setIsUploadModalOpen(true);
-  const closeUploadModal = () => setIsUploadModalOpen(false);
+  const openAuthModal = () => setIsAuthModalOpen(true);
+  const closeAuthModal = () => setIsAuthModalOpen(false);
 
   return (
     <LanguageProvider>
@@ -82,20 +82,20 @@ function App() {
         <div className="grain-overlay" />
 
         {/* Navigation */}
-        <Navigation onGetStartedClick={openUploadModal} />
+        <Navigation onGetStartedClick={openAuthModal} />
 
         {/* Main content */}
         <main className="relative">
-          <Hero onUploadClick={openUploadModal} />
+          <Hero onUploadClick={openAuthModal} />
           <HowItWorks />
           <Features />
           <LiveDemo />
-          <CTA />
+          <CTA onGetStartedClick={openAuthModal} />
           <Footer />
         </main>
 
-        {/* Upload Modal */}
-        <UploadModal isOpen={isUploadModalOpen} onClose={closeUploadModal} />
+        {/* Auth Modal (login/register) */}
+        <AuthModal isOpen={isAuthModalOpen} onClose={closeAuthModal} />
       </div>
     </LanguageProvider>
   );

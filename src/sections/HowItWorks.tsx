@@ -149,7 +149,7 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="step-card bg-white rounded-[28px] card-shadow p-6 lg:p-8 flex items-center gap-6 transition-transform duration-300 hover:scale-[1.02]"
+              className="step-card bg-surface rounded-[28px] card-shadow p-6 lg:p-8 flex items-center gap-6 transition-transform duration-300 hover:scale-[1.02]"
             >
               {/* Step number circle */}
               <div className="flex-shrink-0 w-14 h-14 rounded-full border-2 border-violet flex items-center justify-center">
@@ -166,7 +166,7 @@ export default function HowItWorks() {
                 <h3 className="font-heading text-[clamp(16px,1.3vw,22px)] text-violet mb-1">
                   {step.title}
                 </h3>
-                <p className="font-body text-sm text-violet/60">
+                <p className="font-body text-[15px] text-violet/90 leading-relaxed">
                   {step.description}
                 </p>
               </div>

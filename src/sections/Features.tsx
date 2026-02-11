@@ -108,7 +108,7 @@ export default function Features() {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="feature-card flex-1 min-w-0 max-w-[360px] h-full bg-white rounded-[28px] p-6 lg:p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] group shadow-[0_20px_60px_-15px_rgba(5,46,22,0.3)]"
+            className="feature-card flex-1 min-w-0 max-w-[360px] h-full bg-surface rounded-[28px] p-6 lg:p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] group shadow-[0_20px_60px_-15px_rgba(5,46,22,0.3)]"
           >
             {/* Icon */}
             <div className="w-12 h-12 bg-lime/20 rounded-xl flex items-center justify-center mb-6 shrink-0">
@@ -121,12 +121,12 @@ export default function Features() {
             </h3>
 
             {/* Description */}
-            <p className="font-body text-sm text-violet/70 mb-4 flex-1 min-h-0">
+            <p className="font-body text-[15px] text-violet/90 leading-relaxed mb-4 flex-1 min-h-0">
               {feature.description}
             </p>
 
             {/* Context line */}
-            <p className="font-body text-xs text-violet/50 mb-6">
+            <p className="font-body text-sm text-violet/80 mb-6">
               {feature.detail}
             </p>
 

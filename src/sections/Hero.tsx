@@ -170,7 +170,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div
           ref={cardRef}
-          className="pointer-events-auto w-[86vw] max-w-[1100px] h-[64vh] bg-white rounded-[28px] card-shadow overflow-hidden"
+          className="pointer-events-auto w-[86vw] max-w-[1100px] h-[64vh] bg-surface rounded-[28px] card-shadow overflow-hidden"
         >
           <div className="flex h-full">
           {/* Left content */}
@@ -188,7 +188,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
             
             <p
               ref={subheadRef}
-              className="font-body text-[clamp(14px,1.2vw,18px)] text-violet/70 leading-relaxed mb-8 max-w-[90%]"
+              className="font-body text-[clamp(15px,1.25vw,18px)] text-violet/90 leading-relaxed mb-8 max-w-[90%]"
             >
               {t.hero.subheadline}
             </p>
@@ -203,7 +203,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
               </Button>
               <a
                 href="#how-it-works"
-                className="font-label uppercase tracking-[0.08em] text-sm text-violet/70 hover:text-violet transition-colors flex items-center py-3"
+                className="font-label uppercase tracking-[0.08em] text-sm text-violet/85 hover:text-violet transition-colors flex items-center py-3"
               >
                 {t.hero.seeHowItWorks}
               </a>
@@ -220,7 +220,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
               {/* 3D Notes Illustration */}
               <div className="relative">
                 {/* Main document */}
-                <div className="relative bg-white rounded-2xl shadow-card p-6 w-[280px] transform rotate-[-3deg] border border-violet/10">
+                <div className="relative bg-surface rounded-2xl shadow-card p-6 w-[280px] transform rotate-[-3deg] border border-violet/10">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="w-8 h-8 bg-lime rounded-lg flex items-center justify-center">
                       <FileText size={16} className="text-violet" />
@@ -243,7 +243,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
                 <div className="absolute -top-8 -right-12 bg-lime rounded-xl p-4 w-[140px] shadow-card transform rotate-[8deg] animate-float">
                   <div className="flex items-center gap-1 mb-2">
                     <Zap size={14} className="text-violet" />
-                    <span className="text-[10px] font-label uppercase text-violet/70">Flashcard</span>
+                    <span className="text-[11px] font-label uppercase text-violet/90 font-medium">Flashcard</span>
                   </div>
                   <div className="h-2 w-full bg-violet/20 rounded mb-1" />
                   <div className="h-2 w-[80%] bg-violet/20 rounded" />
@@ -256,7 +256,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
                 </div>
 
                 {/* Highlight marker */}
-                <div className="absolute top-1/2 -right-4 bg-white rounded-lg p-2 shadow-card transform rotate-[12deg]">
+                <div className="absolute top-1/2 -right-4 bg-surface rounded-lg p-2 shadow-card transform rotate-[12deg]">
                   <div className="w-3 h-12 bg-lime/60 rounded" />
                 </div>
               </div>

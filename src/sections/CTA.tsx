@@ -1,22 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, ArrowRight, Check } from 'lucide-react';
+import { Sparkles, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
 
-function CTA() {
+interface CTAProps {
+  onGetStartedClick: () => void;
+}
+
+function CTA({ onGetStartedClick }: CTAProps) {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
-  const formRef = useRef<HTMLDivElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
   const sparklesRef = useRef<HTMLDivElement>(null);
-  const [email, setEmail] = useState('');
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -49,12 +50,12 @@ function CTA() {
         );
       }
 
-      // Form entrance (10% - 30%)
+      // CTA button entrance: быстро появляется (0.05–0.2), чтобы был кликабелен при входе в секцию
       scrollTl.fromTo(
-        formRef.current,
+        ctaRef.current,
         { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, ease: 'none' },
-        0.1
+        { y: 0, opacity: 1, ease: 'none', duration: 0.15 },
+        0.05
       );
 
       // Sparkles entrance (0% - 25%)
@@ -87,7 +88,7 @@ function CTA() {
       }
 
       scrollTl.fromTo(
-        formRef.current,
+        ctaRef.current,
         { y: 0, opacity: 1 },
         { y: 20, opacity: 0, ease: 'power2.in' },
         0.7
@@ -107,13 +108,6 @@ function CTA() {
 
     return () => ctx.revert();
   }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setIsSubmitted(true);
-    }
-  };
 
   const headlineWords = t.cta.headline.split(' ');
 
@@ -147,10 +141,10 @@ function CTA() {
         </div>
       </div>
 
-      {/* CTA Card — белая карточка в стиле Hero / How it works, без зелёного фона */}
+      {/* CTA Card — z-[80] чтобы была поверх Footer (z-[70]) и кнопка была кликабельна */}
       <div
         ref={cardRef}
-        className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[86vw] max-w-[1080px] h-[58vh] bg-white rounded-[28px] card-shadow flex flex-col items-center justify-center px-6 border border-violet/5"
+        className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[86vw] max-w-[1080px] h-[58vh] bg-surface rounded-[28px] card-shadow flex flex-col items-center justify-center px-6 border border-violet/5 z-[80]"
       >
         {/* Headline */}
         <h2
@@ -165,42 +159,21 @@ function CTA() {
         </h2>
 
         {/* Subheadline */}
-        <p className="font-body text-[clamp(14px,1.2vw,18px)] text-violet/70 text-center max-w-[600px] mb-8">
+        <p className="font-body text-[clamp(15px,1.25vw,18px)] text-violet/90 text-center max-w-[600px] mb-8 leading-relaxed">
           {t.cta.subheadline}
         </p>
 
-        {/* Form */}
-        <div ref={formRef} className="w-full max-w-[480px]">
-          {!isSubmitted ? (
-            <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
-              <Input
-                type="email"
-                placeholder={t.cta.placeholder}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 h-14 px-6 bg-violet/5 border border-violet/15 rounded-xl font-body text-violet placeholder:text-violet/40 focus:ring-2 focus:ring-violet/30"
-                required
-              />
-              <Button
-                type="submit"
-                className="h-14 px-8 bg-lime text-violet hover:bg-lime-dark font-label uppercase tracking-[0.08em] text-sm rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
-              >
-                {t.cta.getStartedFree}
-                <ArrowRight size={16} />
-              </Button>
-            </form>
-          ) : (
-            <div className="flex items-center justify-center gap-3 h-14 bg-violet/5 rounded-xl border border-violet/10">
-              <div className="w-8 h-8 bg-lime rounded-full flex items-center justify-center">
-                <Check size={18} className="text-violet" />
-              </div>
-              <span className="font-body text-violet">
-                {t.cta.thanks}
-              </span>
-            </div>
-          )}
-
-          <p className="font-body text-xs text-violet/50 text-center mt-4">
+        {/* CTA button — только кнопка по центру, ведёт на окно регистрации/логина */}
+        <div ref={ctaRef} className="flex flex-col items-center gap-3">
+          <Button
+            type="button"
+            onClick={onGetStartedClick}
+            className="h-14 px-10 bg-lime text-violet hover:bg-lime-dark font-label uppercase tracking-[0.08em] text-sm rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
+          >
+            {t.cta.getStartedFree}
+            <ArrowRight size={16} />
+          </Button>
+          <p className="font-body text-sm text-violet/80 text-center">
             {t.cta.noCard}
           </p>
         </div>

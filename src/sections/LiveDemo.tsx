@@ -108,13 +108,13 @@ export default function LiveDemo() {
       {/* Demo card */}
       <div
         ref={cardRef}
-        className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[1140px] h-[68vh] bg-white rounded-[28px] card-shadow overflow-hidden"
+        className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[1140px] h-[68vh] bg-surface rounded-[28px] card-shadow overflow-hidden"
       >
         <div className="flex h-full">
           {/* Left chat panel */}
           <div ref={chatRef} className="w-[58%] h-full p-6 lg:p-10 flex flex-col">
             <div className="mb-6">
-              <span className="font-label uppercase tracking-[0.08em] text-sm text-violet/60 mb-2 block">
+              <span className="font-label uppercase tracking-[0.08em] text-sm text-violet/80 mb-2 block">
                 {t.demo.label}
               </span>
               <h2 className="font-heading text-[clamp(24px,3vw,40px)] leading-[1.1] text-violet">
@@ -131,7 +131,7 @@ export default function LiveDemo() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                    <p className="font-body text-sm text-violet">
+                    <p className="font-body text-[15px] text-violet">
                       {t.demo.userQuestion}
                     </p>
                   </div>
@@ -144,18 +144,18 @@ export default function LiveDemo() {
                   <Bot size={16} className="text-violet" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="bg-white border border-violet/10 rounded-2xl rounded-tl-sm p-4 max-w-[95%] shadow-sm">
-                    <p className="font-body text-sm text-violet leading-relaxed">
+                  <div className="bg-surface border border-violet/10 rounded-2xl rounded-tl-sm p-4 max-w-[95%] shadow-sm">
+                    <p className="font-body text-[15px] text-violet/95 leading-relaxed">
                       {t.demo.aiAnswerIntro} <span className="bg-lime/30 px-1 rounded">{t.demo.aiAnswerHighlight}</span> {t.demo.aiAnswerRest}
                     </p>
                     <ul className="mt-2 space-y-1">
                       <li className="flex items-center gap-2">
                         <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
-                        <span className="font-body text-sm text-violet/80">{t.demo.aiBullet1}</span>
+                        <span className="font-body text-[15px] text-violet/90">{t.demo.aiBullet1}</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
-                        <span className="font-body text-sm text-violet/80">{t.demo.aiBullet2}</span>
+                        <span className="font-body text-[15px] text-violet/90">{t.demo.aiBullet2}</span>
                       </li>
                     </ul>
                   </div>
@@ -169,7 +169,7 @@ export default function LiveDemo() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                    <p className="font-body text-sm text-violet">
+                    <p className="font-body text-[15px] text-violet">
                       {t.demo.userFollowUp}
                     </p>
                   </div>
@@ -183,7 +183,7 @@ export default function LiveDemo() {
                 <input
                   type="text"
                   placeholder={t.demo.placeholder}
-                  className="flex-1 min-h-8 py-2 bg-transparent font-body text-sm text-violet placeholder:text-violet/40 outline-none leading-normal"
+                  className="flex-1 min-h-8 py-2 bg-transparent font-body text-[15px] text-violet placeholder:text-violet/65 outline-none leading-normal"
                   readOnly
                 />
                 <div className="w-8 h-8 bg-lime rounded-lg flex items-center justify-center">
@@ -209,7 +209,7 @@ export default function LiveDemo() {
               >
                 {/* Front of card */}
                 <div
-                  className="absolute inset-0 bg-white rounded-[22px] card-shadow p-6 flex flex-col items-center justify-center"
+                  className="absolute inset-0 bg-surface rounded-[22px] card-shadow p-6 flex flex-col items-center justify-center"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
                   <div className="w-12 h-12 bg-lime/20 rounded-xl flex items-center justify-center mb-6">
@@ -218,7 +218,7 @@ export default function LiveDemo() {
                   <h3 className="font-heading text-xl text-violet text-center mb-4">
                     {t.demo.flashcardQuestion}
                   </h3>
-                  <p className="font-body text-sm text-violet/60 text-center">
+                  <p className="font-body text-[15px] text-violet/90 text-center">
                     {t.demo.flashcardPrompt}
                   </p>
                   <button
@@ -242,7 +242,7 @@ export default function LiveDemo() {
                   <div className="w-12 h-12 bg-violet/20 rounded-xl flex items-center justify-center mb-6">
                     <span className="font-heading text-xl text-violet">A</span>
                   </div>
-                  <p className="font-body text-sm text-violet text-center leading-relaxed">
+                  <p className="font-body text-[15px] text-violet/95 text-center leading-relaxed">
                     {t.demo.flashcardAnswer}
                   </p>
                   <button
