@@ -40,15 +40,17 @@ export default function Features() {
         0
       );
 
-      // Feature cards entrance (0% - 30%) with stagger
+      // Карточки: все три должны закончить вход к одному моменту, чтобы правая не «не доезжала»
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll('.feature-card');
+        const duration = 0.2;
+        const starts = [0, 0.05, 0.1]; // все приходят к 0.2, 0.25, 0.3
         cards.forEach((card, i) => {
           scrollTl.fromTo(
             card,
             { x: '50vw', rotateY: -18, opacity: 0 },
-            { x: 0, rotateY: 0, opacity: 1, ease: 'none' },
-            i * 0.06
+            { x: 0, rotateY: 0, opacity: 1, ease: 'none', duration },
+            starts[i]
           );
         });
       }
@@ -106,7 +108,7 @@ export default function Features() {
         {features.map((feature, index) => (
           <div
             key={index}
-            className="feature-card flex-1 min-w-0 max-w-[360px] h-full bg-violet-light/50 border border-white/10 rounded-[28px] p-6 lg:p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] group"
+            className="feature-card flex-1 min-w-0 max-w-[360px] h-full bg-white rounded-[28px] p-6 lg:p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] group shadow-[0_20px_60px_-15px_rgba(43,14,186,0.25)]"
           >
             {/* Icon */}
             <div className="w-12 h-12 bg-lime/20 rounded-xl flex items-center justify-center mb-6 shrink-0">
@@ -114,17 +116,17 @@ export default function Features() {
             </div>
 
             {/* Title */}
-            <h3 className="font-heading text-[clamp(18px,1.5vw,24px)] text-white mb-3 shrink-0">
+            <h3 className="font-heading text-[clamp(18px,1.5vw,24px)] text-violet mb-3 shrink-0">
               {feature.title}
             </h3>
 
             {/* Description */}
-            <p className="font-body text-sm text-white/60 mb-4 flex-1 min-h-0">
+            <p className="font-body text-sm text-violet/70 mb-4 flex-1 min-h-0">
               {feature.description}
             </p>
 
             {/* Context line */}
-            <p className="font-body text-xs text-white/40 mb-6">
+            <p className="font-body text-xs text-violet/50 mb-6">
               {feature.detail}
             </p>
 

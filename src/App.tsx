@@ -8,7 +8,6 @@ import Hero from '@/sections/Hero';
 import HowItWorks from '@/sections/HowItWorks';
 import Features from '@/sections/Features';
 import LiveDemo from '@/sections/LiveDemo';
-import Testimonials from '@/sections/Testimonials';
 import CTA from '@/sections/CTA';
 import Footer from '@/sections/Footer';
 
@@ -91,7 +90,6 @@ function App() {
           <HowItWorks />
           <Features />
           <LiveDemo />
-          <Testimonials />
           <CTA />
           <Footer />
         </main>

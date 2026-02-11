@@ -46,15 +46,17 @@ export default function LiveDemo() {
         0
       );
 
-      // Chat messages entrance (5% - 30%)
+      // Chat messages entrance: все три сообщения должны закончить движение к 30%, чтобы аватар последнего не «не доезжал»
       if (chatRef.current) {
         const messages = chatRef.current.querySelectorAll('.chat-message');
+        const duration = 0.2;
+        const starts = [0, 0.05, 0.1]; // все приходят к 0.2, 0.25, 0.3
         messages.forEach((msg, i) => {
           scrollTl.fromTo(
             msg,
             { x: '-10vw', opacity: 0 },
-            { x: 0, opacity: 1, ease: 'none' },
-            0.05 + i * 0.05
+            { x: 0, opacity: 1, ease: 'none', duration },
+            starts[i]
           );
         });
       }
@@ -120,14 +122,14 @@ export default function LiveDemo() {
               </h2>
             </div>
 
-            {/* Chat messages */}
-            <div className="flex-1 space-y-4 overflow-y-auto hide-scrollbar">
+            {/* Chat messages: выравнивание по центру по высоте, блок переписки чуть ниже */}
+            <div className="flex-1 pt-2 space-y-4 overflow-y-auto hide-scrollbar">
               {/* User message */}
-              <div className="chat-message flex gap-3">
+              <div className="chat-message flex items-center gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-violet/10 rounded-full flex items-center justify-center">
                   <User size={16} className="text-violet" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
                     <p className="font-body text-sm text-violet">
                       {t.demo.userQuestion}
@@ -137,22 +139,22 @@ export default function LiveDemo() {
               </div>
 
               {/* AI message */}
-              <div className="chat-message flex gap-3">
+              <div className="chat-message flex items-center gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-lime rounded-full flex items-center justify-center">
                   <Bot size={16} className="text-violet" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="bg-white border border-violet/10 rounded-2xl rounded-tl-sm p-4 max-w-[95%] shadow-sm">
                     <p className="font-body text-sm text-violet leading-relaxed">
                       {t.demo.aiAnswerIntro} <span className="bg-lime/30 px-1 rounded">{t.demo.aiAnswerHighlight}</span> {t.demo.aiAnswerRest}
                     </p>
                     <ul className="mt-2 space-y-1">
-                      <li className="flex items-start gap-2">
-                        <span className="text-lime mt-1">•</span>
+                      <li className="flex items-center gap-2">
+                        <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
                         <span className="font-body text-sm text-violet/80">{t.demo.aiBullet1}</span>
                       </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-lime mt-1">•</span>
+                      <li className="flex items-center gap-2">
+                        <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
                         <span className="font-body text-sm text-violet/80">{t.demo.aiBullet2}</span>
                       </li>
                     </ul>
@@ -161,11 +163,11 @@ export default function LiveDemo() {
               </div>
 
               {/* Follow-up user message */}
-              <div className="chat-message flex gap-3">
+              <div className="chat-message flex items-center gap-3">
                 <div className="flex-shrink-0 w-8 h-8 bg-violet/10 rounded-full flex items-center justify-center">
                   <User size={16} className="text-violet" />
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 min-w-0">
                   <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
                     <p className="font-body text-sm text-violet">
                       {t.demo.userFollowUp}
@@ -177,11 +179,11 @@ export default function LiveDemo() {
 
             {/* Input area */}
             <div className="mt-4 pt-4 border-t border-violet/10">
-              <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-3">
+              <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-2 min-h-12">
                 <input
                   type="text"
                   placeholder={t.demo.placeholder}
-                  className="flex-1 bg-transparent font-body text-sm text-violet placeholder:text-violet/40 outline-none"
+                  className="flex-1 min-h-8 py-2 bg-transparent font-body text-sm text-violet placeholder:text-violet/40 outline-none leading-normal"
                   readOnly
                 />
                 <div className="w-8 h-8 bg-lime rounded-lg flex items-center justify-center">
@@ -219,9 +221,14 @@ export default function LiveDemo() {
                   <p className="font-body text-sm text-violet/60 text-center">
                     {t.demo.flashcardPrompt}
                   </p>
-                  <div className="absolute bottom-4 right-4">
-                    <RotateCw size={18} className="text-violet/30" />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsFlipped((prev) => !prev)}
+                    className="absolute bottom-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-violet/30 hover:text-violet/60 hover:bg-violet/5 transition-colors cursor-pointer z-10"
+                    aria-label={t.demo.flashcardFlip}
+                  >
+                    <RotateCw size={18} />
+                  </button>
                 </div>
 
                 {/* Back of card */}
@@ -238,13 +245,14 @@ export default function LiveDemo() {
                   <p className="font-body text-sm text-violet text-center leading-relaxed">
                     {t.demo.flashcardAnswer}
                   </p>
-                  <div className="mt-4 flex gap-2">
-                    <div className="h-2 w-16 bg-violet/20 rounded" />
-                    <div className="h-2 w-12 bg-violet/20 rounded" />
-                  </div>
-                  <div className="absolute bottom-4 right-4">
-                    <RotateCw size={18} className="text-violet/40" />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsFlipped((prev) => !prev)}
+                    className="absolute bottom-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-violet/40 hover:text-violet/70 hover:bg-violet/10 transition-colors cursor-pointer z-10"
+                    aria-label={t.demo.flashcardFlip}
+                  >
+                    <RotateCw size={18} />
+                  </button>
                 </div>
               </div>
             </div>

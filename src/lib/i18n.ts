@@ -54,6 +54,7 @@ export const translations = {
       flashcardQuestion: 'Интервальное повторение',
       flashcardPrompt: 'Что это и как работает?',
       flashcardAnswer: 'Повторяйте материал с растущими интервалами — так улучшается долговременное запоминание.',
+      flashcardFlip: 'Перевернуть карточку',
     },
     testimonials: {
       label: 'Отзывы',
@@ -153,6 +154,7 @@ export const translations = {
       flashcardQuestion: 'Spaced repetition',
       flashcardPrompt: 'What is it and how does it work?',
       flashcardAnswer: 'Review material at increasing intervals to improve long-term retention.',
+      flashcardFlip: 'Flip card',
     },
     testimonials: {
       label: 'Testimonials',
