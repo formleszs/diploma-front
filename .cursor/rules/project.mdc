@@ -1,0 +1,9 @@
+# Правила проекта (для агента)
+
+- Стек: **React + TypeScript + Vite + Tailwind CSS + shadcn/ui**.
+- Структура: `src/main.tsx`, `src/App.tsx`, `src/sections/`, `src/components/`, `src/components/ui/`, `src/hooks/`, `src/lib/`.
+- В `src/components/ui/` — только UI-примитивы (shadcn/Radix). Крупные блоки — в `src/components` или `src/sections`.
+- Комментарии — только для неочевидной логики. Не комментировать очевидное.
+- Стиль: функциональные компоненты, `const` по умолчанию, явные типы где нужно, избегать `any`.
+- Стили: Tailwind + компоненты из `src/components/ui`. Не дублировать примитивы.
+- Git: не коммитить `dist/`, `node_modules/`. Перед коммитом — `npm run lint`, `npm run build`.

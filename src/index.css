@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 250 88% 39%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 250 88% 39%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 250 88% 39%;
+    --primary: 72 97% 65%;
+    --primary-foreground: 250 88% 39%;
+    --secondary: 250 60% 30%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 250 60% 35%;
+    --muted-foreground: 0 0% 100% / 0.72;
+    --accent: 72 97% 65%;
+    --accent-foreground: 250 88% 39%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 100% / 0.10;
+    --input: 0 0% 100% / 0.15;
+    --ring: 72 97% 65%;
+    --radius: 1.75rem;
+    
+    --violet: #2B0EBA;
+    --lime: #DDFD53;
+    --violet-dark: #1e0a85;
+    --violet-light: #3d1ed4;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .font-label {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+  
+  .text-gradient {
+    background: linear-gradient(135deg, var(--lime) 0%, #b8e600 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .bg-violet {
+    background-color: var(--violet);
+  }
+  
+  .bg-lime {
+    background-color: var(--lime);
+  }
+  
+  .text-lime {
+    color: var(--lime);
+  }
+  
+  .text-violet {
+    color: var(--violet);
+  }
+  
+  .card-shadow {
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
+  }
+  
+  .card-shadow-light {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+  
+  .grain-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.04;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  }
+  
+  .sparkle {
+    animation: sparkle-rotate 4s ease-in-out infinite;
+  }
+  
+  @keyframes sparkle-rotate {
+    0%, 100% { transform: rotate(-6deg); }
+    50% { transform: rotate(6deg); }
+  }
+  
+  .float-animation {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .blob-gradient {
+    background: radial-gradient(ellipse at center, rgba(61, 30, 212, 0.6) 0%, rgba(43, 14, 186, 0) 70%);
+  }
+  
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--violet-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--lime);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #c5e600;
+}
