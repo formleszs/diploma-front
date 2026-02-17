@@ -19,7 +19,7 @@ module.exports = {
           DEFAULT: "#22c55e",
           dark: "#16a34a",
         },
-        surface: "#dce8dc",
+        surface: "#c8ddc8",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
