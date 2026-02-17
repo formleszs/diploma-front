@@ -94,12 +94,6 @@ export default function Navigation({ onGetStartedClick }: NavigationProps) {
             >
               {t.nav.demo}
             </button>
-            <button
-              onClick={() => scrollToSection('#testimonials')}
-              className="font-label uppercase tracking-[0.08em] text-xs text-white/70 hover:text-white transition-colors whitespace-nowrap"
-            >
-              {t.nav.testimonials}
-            </button>
           </div>
 
           {/* CTA — справа */}

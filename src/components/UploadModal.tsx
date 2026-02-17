@@ -111,7 +111,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-[800px] max-h-[90vh] overflow-y-auto bg-white rounded-[24px] p-0 border-0">
+      <DialogContent className="max-w-[800px] max-h-[90vh] overflow-y-auto bg-surface rounded-[24px] p-0 border-0">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="font-heading text-2xl text-violet flex items-center gap-3">
             {!isComplete ? (
@@ -135,7 +135,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
         <div className="p-6">
           {!file && !isComplete && (
             <>
-              <p className="font-body text-violet/70 mb-6">
+              <p className="font-body text-[15px] text-violet/90 leading-relaxed mb-6">
                 {t.uploadModal.intro}
               </p>
 
@@ -156,7 +156,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                 <p className="font-heading text-lg text-violet mb-2">
                   {t.uploadModal.dropHere}
                 </p>
-                <p className="font-body text-sm text-violet/60 mb-4">
+                <p className="font-body text-[15px] text-violet/90 mb-4">
                   {t.uploadModal.orClick}
                 </p>
                 <input
@@ -179,17 +179,17 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
               {/* Supported formats */}
               <div className="mt-6 flex flex-wrap justify-center gap-4">
-                <div className="flex items-center gap-2 text-violet/50">
+                <div className="flex items-center gap-2 text-violet/85">
                   <FileText size={16} />
-                  <span className="font-body text-xs">PDF</span>
+                  <span className="font-body text-sm font-medium">PDF</span>
                 </div>
-                <div className="flex items-center gap-2 text-violet/50">
+                <div className="flex items-center gap-2 text-violet/85">
                   <ImageIcon size={16} />
-                  <span className="font-body text-xs">Images</span>
+                  <span className="font-body text-sm font-medium">Images</span>
                 </div>
-                <div className="flex items-center gap-2 text-violet/50">
+                <div className="flex items-center gap-2 text-violet/85">
                   <BookOpen size={16} />
-                  <span className="font-body text-xs">Documents</span>
+                  <span className="font-body text-sm font-medium">Documents</span>
                 </div>
               </div>
             </>
@@ -206,7 +206,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
               <h3 className="font-heading text-xl text-violet mb-2">
                 {t.uploadModal.analyzing}
               </h3>
-              <p className="font-body text-sm text-violet/60">
+              <p className="font-body text-[15px] text-violet/90">
                 {t.uploadModal.extracting}
               </p>
             </div>
@@ -233,7 +233,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                         {theme.points.map((point, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="text-lime mt-0.5">•</span>
-                            <span className="font-body text-sm text-violet/70">{point}</span>
+                            <span className="font-body text-[15px] text-violet/90">{point}</span>
                           </li>
                         ))}
                       </ul>
@@ -257,7 +257,7 @@ export default function UploadModal({ isOpen, onClose }: UploadModalProps) {
                       <p className="font-body text-sm text-violet font-medium mb-1">
                         Q: {card.front}
                       </p>
-                      <p className="font-body text-sm text-violet/70">
+                      <p className="font-body text-[15px] text-violet/90">
                         A: {card.back}
                       </p>
                     </div>

@@ -11,14 +11,15 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         violet: {
-          DEFAULT: "#2B0EBA",
-          dark: "#1e0a85",
-          light: "#3d1ed4",
+          DEFAULT: "#052e16",
+          dark: "#022c22",
+          light: "#14532d",
         },
         lime: {
-          DEFAULT: "#DDFD53",
-          dark: "#c5e600",
+          DEFAULT: "#22c55e",
+          dark: "#16a34a",
         },
+        surface: "#c8ddc8",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

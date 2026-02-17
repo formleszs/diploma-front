@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Upload, Brain, GraduationCap, Sparkles } from 'lucide-react';
+import { Upload, Brain, GraduationCap, HelpCircle } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -111,26 +111,26 @@ export default function HowItWorks() {
         <div className="w-[120vw] h-[120vh] blob-gradient opacity-50" />
       </div>
 
-      {/* Sparkles decoration — лайм как акцент, не перебивает */}
-      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none">
-        <div className="sparkle-item absolute top-[12%] left-[5%] text-lime">
-          <Sparkles size={32} className="text-lime" fill="#DDFD53" />
+      {/* Декор: вопросики (как это работает) — без fill, чтобы был виден контур ? */}
+      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none z-0">
+        <div className="sparkle-item absolute top-[12%] left-[5%] text-lime opacity-75">
+          <HelpCircle size={32} className="text-lime" strokeWidth={2} />
         </div>
-        <div className="sparkle-item absolute top-[20%] right-[8%] text-lime">
-          <Sparkles size={24} className="text-lime" fill="#DDFD53" />
+        <div className="sparkle-item absolute top-[20%] right-[8%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.5s' }}>
+          <HelpCircle size={24} className="text-lime" strokeWidth={2} />
         </div>
-        <div className="sparkle-item absolute bottom-[15%] left-[10%] text-lime">
-          <Sparkles size={20} className="text-lime" fill="#DDFD53" />
+        <div className="sparkle-item absolute bottom-[15%] left-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1s' }}>
+          <HelpCircle size={20} className="text-lime" strokeWidth={2} />
         </div>
-        <div className="sparkle-item absolute top-[50%] right-[5%] text-lime">
-          <Sparkles size={28} className="text-lime" fill="#DDFD53" />
+        <div className="sparkle-item absolute top-[50%] right-[5%] text-lime opacity-75">
+          <HelpCircle size={28} className="text-lime" strokeWidth={2} />
         </div>
-        <div className="sparkle-item absolute bottom-[25%] right-[15%] text-lime">
-          <Sparkles size={18} className="text-lime" fill="#DDFD53" />
+        <div className="sparkle-item absolute bottom-[25%] right-[15%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.5s' }}>
+          <HelpCircle size={18} className="text-lime" strokeWidth={2} />
         </div>
       </div>
 
-      <div className="relative flex h-full items-center px-[7vw]">
+      <div className="relative z-10 flex h-full items-center px-[7vw]">
         {/* Left heading */}
         <div ref={headingRef} className="w-[34vw] pr-8">
           <span className="font-label uppercase tracking-[0.08em] text-sm text-white/60 mb-4 block">
@@ -149,7 +149,7 @@ export default function HowItWorks() {
           {steps.map((step, index) => (
             <div
               key={index}
-              className="step-card bg-white rounded-[28px] card-shadow p-6 lg:p-8 flex items-center gap-6 transition-transform duration-300 hover:scale-[1.02]"
+              className="step-card bg-surface rounded-[28px] card-shadow p-6 lg:p-8 flex items-center gap-6 transition-transform duration-300 hover:scale-[1.02]"
             >
               {/* Step number circle */}
               <div className="flex-shrink-0 w-14 h-14 rounded-full border-2 border-violet flex items-center justify-center">
@@ -166,7 +166,7 @@ export default function HowItWorks() {
                 <h3 className="font-heading text-[clamp(16px,1.3vw,22px)] text-violet mb-1">
                   {step.title}
                 </h3>
-                <p className="font-body text-sm text-violet/60">
+                <p className="font-body text-[15px] text-violet/90 leading-relaxed">
                   {step.description}
                 </p>
               </div>

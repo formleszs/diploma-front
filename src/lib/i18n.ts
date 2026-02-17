@@ -54,6 +54,7 @@ export const translations = {
       flashcardQuestion: 'Интервальное повторение',
       flashcardPrompt: 'Что это и как работает?',
       flashcardAnswer: 'Повторяйте материал с растущими интервалами — так улучшается долговременное запоминание.',
+      flashcardFlip: 'Перевернуть карточку',
     },
     testimonials: {
       label: 'Отзывы',
@@ -75,6 +76,18 @@ export const translations = {
       getStartedFree: 'Начать бесплатно',
       thanks: 'Спасибо! Проверьте почту — там следующие шаги.',
       noCard: 'Без банковской карты.',
+    },
+    auth: {
+      title: 'Вход в StudySync',
+      login: 'Войти',
+      register: 'Регистрация',
+      email: 'Email',
+      password: 'Пароль',
+      name: 'Имя',
+      submitLogin: 'Войти',
+      submitRegister: 'Зарегистрироваться',
+      noAccount: 'Нет аккаунта?',
+      haveAccount: 'Уже есть аккаунт?',
     },
     footer: {
       tagline: 'Заметки, которые запоминаются.',
@@ -153,6 +166,7 @@ export const translations = {
       flashcardQuestion: 'Spaced repetition',
       flashcardPrompt: 'What is it and how does it work?',
       flashcardAnswer: 'Review material at increasing intervals to improve long-term retention.',
+      flashcardFlip: 'Flip card',
     },
     testimonials: {
       label: 'Testimonials',
@@ -174,6 +188,18 @@ export const translations = {
       getStartedFree: 'Get started free',
       thanks: 'Thanks! Check your inbox for next steps.',
       noCard: 'No credit card required.',
+    },
+    auth: {
+      title: 'Welcome to StudySync',
+      login: 'Log in',
+      register: 'Sign up',
+      email: 'Email',
+      password: 'Password',
+      name: 'Name',
+      submitLogin: 'Log in',
+      submitRegister: 'Sign up',
+      noAccount: "Don't have an account?",
+      haveAccount: 'Already have an account?',
     },
     footer: {
       tagline: 'Notes that stick.',
