@@ -3,17 +3,18 @@ import { ACCESS_TOKEN_KEY } from '@/types/auth';
 
 export const API_ORIGIN = 'http://localhost:8080';
 
+// В dev используем относительный /api — Vite proxy перенаправляет на backend. В prod — полный URL.
+const baseURL = import.meta.env.DEV ? '/api' : `${API_ORIGIN}/api`;
+
 export const http = axios.create({
-  baseURL: `${API_ORIGIN}/api`,
+  baseURL,
 });
 
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem(ACCESS_TOKEN_KEY);
   if (token) {
-    config.headers = {
-      ...(config.headers ?? {}),
-      Authorization: `Bearer ${token}`,
-    } as typeof config.headers;
+    if (!config.headers) config.headers = {} as typeof config.headers;
+    config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });

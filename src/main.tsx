@@ -10,6 +10,7 @@ import { LoginPage } from '@/app/pages/LoginPage';
 import { DashboardPage } from '@/app/pages/DashboardPage';
 import { CreateProjectPage } from '@/app/pages/CreateProjectPage';
 import { ProjectPage } from '@/app/pages/ProjectPage';
+import { LecturePage } from '@/app/pages/LecturePage';
 import { CardsPage } from '@/app/pages/CardsPage';
 import { TestPage } from '@/app/pages/TestPage';
 import { TestResultsPage } from '@/app/pages/TestResultsPage';
@@ -32,6 +33,7 @@ createRoot(document.getElementById('root')!).render(
             <Route index element={<DashboardPage />} />
             <Route path="projects/new" element={<CreateProjectPage />} />
             <Route path="projects/:projectId" element={<ProjectPage />} />
+            <Route path="projects/:projectId/lectures/:lectureId" element={<LecturePage />} />
             <Route path="projects/:projectId/cards" element={<CardsPage />} />
             <Route path="projects/:projectId/test" element={<TestPage />} />
             <Route path="projects/:projectId/test/results" element={<TestResultsPage />} />

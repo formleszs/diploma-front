@@ -20,5 +20,11 @@ export default defineConfig({
         (path) => !path.startsWith(__dirname),
       ],
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+      },
+    },
   },
 });
