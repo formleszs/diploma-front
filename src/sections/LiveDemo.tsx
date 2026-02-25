@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { User, Bot, RotateCw, MessageCircle } from 'lucide-react';
+import DemoPipeline from '@/sections/DemoPipeline';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -9,275 +9,50 @@ gsap.registerPlugin(ScrollTrigger);
 export default function LiveDemo() {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const chatRef = useRef<HTMLDivElement>(null);
-  const flashcardRef = useRef<HTMLDivElement>(null);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=150%',
-          pin: true,
-          scrub: 0.7,
-          onUpdate: (self) => {
-            // Flip flashcard based on scroll progress (45% - 65%)
-            const progress = self.progress;
-            if (progress >= 0.45 && progress <= 0.65) {
-              const flipProgress = (progress - 0.45) / 0.2;
-              setIsFlipped(flipProgress > 0.5);
-            } else if (progress < 0.45) {
-              setIsFlipped(false);
-            } else {
-              setIsFlipped(true);
-            }
-          }
-        }
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: headerRef.current, start: 'top 85%', once: true },
       });
-
-      // Demo card entrance (0% - 30%)
-      scrollTl.fromTo(
-        cardRef.current,
-        { y: '60vh', scale: 0.92, opacity: 0 },
-        { y: 0, scale: 1, opacity: 1, ease: 'none' },
-        0
-      );
-
-      // Chat messages entrance: все три сообщения должны закончить движение к 30%, чтобы аватар последнего не «не доезжал»
-      if (chatRef.current) {
-        const messages = chatRef.current.querySelectorAll('.chat-message');
-        const duration = 0.2;
-        const starts = [0, 0.05, 0.1]; // все приходят к 0.2, 0.25, 0.3
-        messages.forEach((msg, i) => {
-          scrollTl.fromTo(
-            msg,
-            { x: '-10vw', opacity: 0 },
-            { x: 0, opacity: 1, ease: 'none', duration },
-            starts[i]
-          );
-        });
-      }
-
-      // Flashcard entrance (10% - 30%)
-      scrollTl.fromTo(
-        flashcardRef.current,
-        { x: '40vw', rotateZ: 6, opacity: 0 },
-        { x: 0, rotateZ: 0, opacity: 1, ease: 'none' },
-        0.1
-      );
-
-      // Exit phase (70% - 100%)
-      scrollTl.fromTo(
-        cardRef.current,
-        { y: 0, scale: 1, opacity: 1 },
-        { y: '-28vh', scale: 0.96, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      if (chatRef.current) {
-        const messages = chatRef.current.querySelectorAll('.chat-message');
-        scrollTl.fromTo(
-          messages,
-          { x: 0, opacity: 1 },
-          { x: '-8vw', opacity: 0, ease: 'power2.in' },
-          0.7
-        );
-      }
-
-      scrollTl.fromTo(
-        flashcardRef.current,
-        { x: 0, rotateZ: 0, opacity: 1 },
-        { x: '20vw', rotateZ: 10, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
+      tl.fromTo(headerRef.current,
+        { y: 12, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.95, ease: 'power3.out' }, 0);
+      tl.fromTo(contentRef.current,
+        { y: 10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out' }, 0.12);
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="demo"
-      className="relative w-full h-screen bg-violet overflow-hidden z-40"
-    >
-      {/* Декор: сообщения/чат (демо) — z-0 чтобы точно был виден на фоне */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="sparkle-item absolute top-[14%] left-[7%] text-lime opacity-75 animate-sparkle">
-          <MessageCircle size={26} fill="var(--lime)" />
+    <section ref={sectionRef} id="demo" className="relative w-full bg-transparent py-28 lg:py-40 overflow-hidden">
+      <div className="absolute top-1/3 right-0 section-glow opacity-52" />
+      <div className="absolute top-16 left-[9%] w-44 h-28 pointer-events-none opacity-40" style={{ backgroundImage: 'radial-gradient(circle, rgba(167,243,208,0.95) 1px, transparent 1px)', backgroundSize: '13px 13px', maskImage: 'radial-gradient(circle at center, rgba(0,0,0,0.9), transparent 75%)' }} />
+      <div className="absolute bottom-14 right-[8%] w-52 h-32 pointer-events-none opacity-35" style={{ backgroundImage: 'linear-gradient(rgba(110,231,183,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(110,231,183,0.22) 1px, transparent 1px)', backgroundSize: '17px 17px', maskImage: 'radial-gradient(circle at center, rgba(0,0,0,0.85), transparent 76%)' }} />
+
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 lg:px-14">
+        <div ref={headerRef} className="text-center mb-16">
+          <span className="font-label uppercase tracking-[0.16em] text-[11px] text-lime/60 mb-4 block">
+            {t.demo.label}
+          </span>
+          <h2 className="font-display text-[clamp(34px,4.5vw,60px)] leading-[1.05] text-white mb-5 headline-depth pb-1 overflow-visible">
+            {t.demo.heading}
+          </h2>
+          <p className="font-body text-[clamp(15px,1.2vw,18px)] text-white/50 max-w-lg mx-auto leading-[1.7]">
+            {t.demo.subtitle}
+          </p>
         </div>
-        <div className="sparkle-item absolute top-[24%] right-[9%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.5s' }}>
-          <MessageCircle size={20} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[20%] left-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1s' }}>
-          <MessageCircle size={18} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[52%] right-[5%] text-lime opacity-75">
-          <MessageCircle size={22} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[26%] right-[14%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.5s' }}>
-          <MessageCircle size={16} fill="var(--lime)" />
-        </div>
-      </div>
 
-      {/* Demo card */}
-      <div
-        ref={cardRef}
-        className="absolute left-1/2 top-[54%] -translate-x-1/2 -translate-y-1/2 w-[88vw] max-w-[1140px] h-[68vh] bg-surface rounded-[28px] card-shadow overflow-hidden z-10"
-      >
-        <div className="flex h-full">
-          {/* Left chat panel */}
-          <div ref={chatRef} className="w-[58%] h-full p-6 lg:p-10 flex flex-col">
-            <div className="mb-6">
-              <span className="font-label uppercase tracking-[0.08em] text-sm text-violet/80 mb-2 block">
-                {t.demo.label}
-              </span>
-              <h2 className="font-heading text-[clamp(24px,3vw,40px)] leading-[1.1] text-violet">
-                {t.demo.heading}
-              </h2>
-            </div>
-
-            {/* Chat messages: выравнивание по центру по высоте, блок переписки чуть ниже */}
-            <div className="flex-1 pt-2 space-y-4 overflow-y-auto hide-scrollbar">
-              {/* User message */}
-              <div className="chat-message flex items-center gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-violet/10 rounded-full flex items-center justify-center">
-                  <User size={16} className="text-violet" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                    <p className="font-body text-[15px] text-violet">
-                      {t.demo.userQuestion}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* AI message */}
-              <div className="chat-message flex items-center gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-lime rounded-full flex items-center justify-center">
-                  <Bot size={16} className="text-violet" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="bg-surface border border-violet/10 rounded-2xl rounded-tl-sm p-4 max-w-[95%] shadow-sm">
-                    <p className="font-body text-[15px] text-violet/95 leading-relaxed">
-                      {t.demo.aiAnswerIntro} <span className="bg-lime/30 px-1 rounded">{t.demo.aiAnswerHighlight}</span> {t.demo.aiAnswerRest}
-                    </p>
-                    <ul className="mt-2 space-y-1">
-                      <li className="flex items-center gap-2">
-                        <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
-                        <span className="font-body text-[15px] text-violet/90">{t.demo.aiBullet1}</span>
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <span className="text-lime flex-shrink-0 leading-none" aria-hidden>•</span>
-                        <span className="font-body text-[15px] text-violet/90">{t.demo.aiBullet2}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
-              {/* Follow-up user message */}
-              <div className="chat-message flex items-center gap-3">
-                <div className="flex-shrink-0 w-8 h-8 bg-violet/10 rounded-full flex items-center justify-center">
-                  <User size={16} className="text-violet" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="bg-gray-100 rounded-2xl rounded-tl-sm p-4 max-w-[90%]">
-                    <p className="font-body text-[15px] text-violet">
-                      {t.demo.userFollowUp}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Input area */}
-            <div className="mt-4 pt-4 border-t border-violet/10">
-              <div className="flex items-center gap-3 bg-gray-50 rounded-xl px-4 py-2 min-h-12">
-                <input
-                  type="text"
-                  placeholder={t.demo.placeholder}
-                  className="flex-1 min-h-8 py-2 bg-transparent font-body text-[15px] text-violet placeholder:text-violet/65 outline-none leading-normal"
-                  readOnly
-                />
-                <div className="w-8 h-8 bg-lime rounded-lg flex items-center justify-center">
-                  <Bot size={16} className="text-violet" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right flashcard panel */}
-          <div className="w-[42%] h-full bg-violet/5 flex items-center justify-center p-6">
-            <div
-              ref={flashcardRef}
-              className="relative w-full max-w-[280px] h-[320px]"
-              style={{ perspective: '1000px' }}
-            >
-              <div
-                className="relative w-full h-full transition-transform duration-700"
-                style={{
-                  transformStyle: 'preserve-3d',
-                  transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
-                }}
-              >
-                {/* Front of card */}
-                <div
-                  className="absolute inset-0 bg-surface rounded-[22px] card-shadow p-6 flex flex-col items-center justify-center"
-                  style={{ backfaceVisibility: 'hidden' }}
-                >
-                  <div className="w-12 h-12 bg-lime/20 rounded-xl flex items-center justify-center mb-6">
-                    <span className="font-heading text-xl text-lime">Q</span>
-                  </div>
-                  <h3 className="font-heading text-xl text-violet text-center mb-4">
-                    {t.demo.flashcardQuestion}
-                  </h3>
-                  <p className="font-body text-[15px] text-violet/90 text-center">
-                    {t.demo.flashcardPrompt}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsFlipped((prev) => !prev)}
-                    className="absolute bottom-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-violet/30 hover:text-violet/60 hover:bg-violet/5 transition-colors cursor-pointer z-10"
-                    aria-label={t.demo.flashcardFlip}
-                  >
-                    <RotateCw size={18} />
-                  </button>
-                </div>
-
-                {/* Back of card */}
-                <div
-                  className="absolute inset-0 bg-lime rounded-[22px] card-shadow p-6 flex flex-col items-center justify-center"
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    transform: 'rotateY(180deg)',
-                  }}
-                >
-                  <div className="w-12 h-12 bg-violet/20 rounded-xl flex items-center justify-center mb-6">
-                    <span className="font-heading text-xl text-violet">A</span>
-                  </div>
-                  <p className="font-body text-[15px] text-violet/95 text-center leading-relaxed">
-                    {t.demo.flashcardAnswer}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={() => setIsFlipped((prev) => !prev)}
-                    className="absolute bottom-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-violet/40 hover:text-violet/70 hover:bg-violet/10 transition-colors cursor-pointer z-10"
-                    aria-label={t.demo.flashcardFlip}
-                  >
-                    <RotateCw size={18} />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div ref={contentRef}>
+          <DemoPipeline />
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 section-divider" />
     </section>
   );
 }

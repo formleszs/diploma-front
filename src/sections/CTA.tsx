@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -14,96 +14,29 @@ interface CTAProps {
 function CTA({ onGetStartedClick }: CTAProps) {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
+  const subtextRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
-  const sparklesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=120%',
-          pin: true,
-          scrub: 0.6,
-        }
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
       });
 
-      // CTA card entrance (0% - 30%)
-      scrollTl.fromTo(
-        cardRef.current,
-        { y: '70vh', scale: 0.88, opacity: 0 },
-        { y: 0, scale: 1, opacity: 1, ease: 'none' },
-        0
-      );
-
-      // Headline words entrance (5% - 30%)
       if (headlineRef.current) {
         const words = headlineRef.current.querySelectorAll('.word');
-        scrollTl.fromTo(
-          words,
-          { y: 60, opacity: 0 },
-          { y: 0, opacity: 1, ease: 'none' },
-          0.05
-        );
+        gsap.set(words, { y: 14, opacity: 0 });
+        tl.to(words, { y: 0, opacity: 1, duration: 0.95, stagger: 0.05, ease: 'power3.out' }, 0);
       }
 
-      // CTA button entrance: быстро появляется (0.05–0.2), чтобы был кликабелен при входе в секцию
-      scrollTl.fromTo(
-        ctaRef.current,
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, ease: 'none', duration: 0.15 },
-        0.05
-      );
+      tl.fromTo(subtextRef.current,
+        { y: 9, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.22);
 
-      // Sparkles entrance (0% - 25%)
-      if (sparklesRef.current) {
-        const sparkles = sparklesRef.current.querySelectorAll('.sparkle-item');
-        scrollTl.fromTo(
-          sparkles,
-          { scale: 0, rotate: -30, opacity: 0 },
-          { scale: 1, rotate: 0, opacity: 1, ease: 'none' },
-          0
-        );
-      }
-
-      // Exit phase (70% - 100%)
-      scrollTl.fromTo(
-        cardRef.current,
-        { y: 0, scale: 1, opacity: 1 },
-        { y: '-18vh', scale: 0.98, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      if (headlineRef.current) {
-        const words = headlineRef.current.querySelectorAll('.word');
-        scrollTl.fromTo(
-          words,
-          { y: 0, opacity: 1 },
-          { y: -30, opacity: 0, ease: 'power2.in' },
-          0.7
-        );
-      }
-
-      scrollTl.fromTo(
-        ctaRef.current,
-        { y: 0, opacity: 1 },
-        { y: 20, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      if (sparklesRef.current) {
-        const sparkles = sparklesRef.current.querySelectorAll('.sparkle-item');
-        scrollTl.fromTo(
-          sparkles,
-          { scale: 1, opacity: 1 },
-          { scale: 0.7, opacity: 0, ease: 'power2.in' },
-          0.75
-        );
-      }
-
+      tl.fromTo(ctaRef.current,
+        { y: 8, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out' }, 0.34);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -112,70 +45,36 @@ function CTA({ onGetStartedClick }: CTAProps) {
   const headlineWords = t.cta.headline.split(' ');
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full h-screen bg-violet overflow-hidden z-[60]"
-    >
-      {/* Декор: звёздочки (CTA) — z-0 чтобы всегда виден на фоне */}
-      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none z-0">
-        <div className="sparkle-item absolute top-[12%] left-[8%] text-lime opacity-75 animate-sparkle">
-          <Sparkles size={28} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[18%] right-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.5s' }}>
-          <Sparkles size={22} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[20%] left-[12%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1s' }}>
-          <Sparkles size={18} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[55%] right-[6%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.5s' }}>
-          <Sparkles size={24} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[30%] right-[18%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '2s' }}>
-          <Sparkles size={16} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[35%] left-[5%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '2.5s' }}>
-          <Sparkles size={20} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[15%] right-[8%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '3s' }}>
-          <Sparkles size={26} fill="var(--lime)" />
-        </div>
+    <section ref={sectionRef} className="relative w-full bg-transparent py-40 lg:py-52 overflow-visible">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-[46%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[860px] h-[760px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.16) 0%, rgba(34,197,94,0.045) 34%, transparent 62%)' }} />
+        <div className="absolute top-[22%] left-[8%] w-40 h-28 opacity-45" style={{ backgroundImage: 'radial-gradient(circle, rgba(167,243,208,0.9) 1px, transparent 1px)', backgroundSize: '12px 12px', maskImage: 'radial-gradient(circle at center, rgba(0,0,0,0.9), transparent 75%)' }} />
+        <div className="absolute bottom-[18%] right-[10%] w-48 h-32 opacity-38" style={{ backgroundImage: 'linear-gradient(rgba(110,231,183,0.22) 1px, transparent 1px), linear-gradient(90deg, rgba(110,231,183,0.22) 1px, transparent 1px)', backgroundSize: '16px 16px', maskImage: 'radial-gradient(circle at center, rgba(0,0,0,0.85), transparent 75%)' }} />
       </div>
 
-      {/* CTA Card — z-[80] чтобы была поверх Footer (z-[70]) и кнопка была кликабельна */}
-      <div
-        ref={cardRef}
-        className="absolute left-1/2 top-[55%] -translate-x-1/2 -translate-y-1/2 w-[86vw] max-w-[1080px] h-[58vh] bg-surface rounded-[28px] card-shadow flex flex-col items-center justify-center px-6 border border-violet/5 z-[80]"
-      >
-        {/* Headline */}
+      <div className="relative z-10 text-center px-6 max-w-3xl mx-auto overflow-visible">
         <h2
           ref={headlineRef}
-          className="font-heading text-[clamp(32px,5vw,64px)] leading-[0.95] text-violet text-center mb-4"
+          className="font-display text-[clamp(40px,6.5vw,88px)] leading-[1.08] text-white mb-9 headline-depth pb-4 overflow-visible"
         >
-        {headlineWords.map((word, i) => (
-            <span key={i} className="word inline-block mr-[0.25em]">
-              {word}
-            </span>
+          {headlineWords.map((word, i) => (
+            <span key={i} className={`word inline-block mr-[0.18em] pb-[0.08em] ${i === headlineWords.length - 1 ? 'text-gradient-lime' : ''}`}>{word}</span>
           ))}
         </h2>
-
-        {/* Subheadline */}
-        <p className="font-body text-[clamp(15px,1.25vw,18px)] text-violet/90 text-center max-w-[600px] mb-8 leading-relaxed">
+        <p ref={subtextRef} className="font-body text-[clamp(16px,1.4vw,20px)] text-white/55 max-w-[500px] mx-auto mb-14 leading-[1.75]">
           {t.cta.subheadline}
         </p>
-
-        {/* CTA button — только кнопка по центру, ведёт на окно регистрации/логина */}
-        <div ref={ctaRef} className="flex flex-col items-center gap-3">
+        <div ref={ctaRef} className="flex flex-col items-center gap-5">
+          <div className="absolute left-1/2 -translate-x-1/2 top-[72%] w-[320px] h-[100px] rounded-full pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, rgba(74,222,128,0.26) 0%, rgba(74,222,128,0.07) 36%, transparent 70%)' }} />
           <Button
             type="button"
             onClick={onGetStartedClick}
-            className="h-14 px-10 bg-lime text-violet hover:bg-lime-dark font-label uppercase tracking-[0.08em] text-sm rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg flex items-center gap-2"
+            className="relative btn-pill h-[58px] px-16 bg-lime text-violet hover:bg-lime-dark font-label font-bold text-[16px] tracking-wide transition-[transform,box-shadow] duration-300 hover:shadow-[0_0_70px_-10px_rgba(34,197,94,0.4)] hover:-translate-y-1 active:scale-[0.97] flex items-center gap-3 border border-lime/40"
           >
             {t.cta.getStartedFree}
-            <ArrowRight size={16} />
+            <ArrowRight size={19} />
           </Button>
-          <p className="font-body text-sm text-violet/80 text-center">
-            {t.cta.noCard}
-          </p>
+          <p className="font-body text-[13px] text-white/30">{t.cta.noCard}</p>
         </div>
       </div>
     </section>

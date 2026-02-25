@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AnimatedOutlet } from '@/app/AnimatedOutlet';
 import { BookOpen, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { Toaster } from '@/components/ui/sonner';
 import { useAuth } from '@/context/AuthContext';
 import ProfileModal from '@/components/ProfileModal';
 import { API_ORIGIN } from '@/api/http';
@@ -31,14 +33,17 @@ export function AppLayout() {
   const src = user ? avatarSrc(user.avatarUrl) : null;
 
   return (
-    <div className="min-h-screen bg-violet">
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-violet/95 backdrop-blur-md">
+    <div className="relative min-h-screen bg-violet-dark overflow-x-hidden">
+      <div className="fixed inset-0 pointer-events-none bg-depth-drift opacity-[0.14]" aria-hidden />
+      <div className="glow-orb glow-orb-2 fixed top-[-10vh] right-[-14vw] z-0" aria-hidden />
+      <div className="grain-overlay" style={{ opacity: 0.02 }} />
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-violet-dark/95 backdrop-blur-xl">
         <div className="flex h-14 w-full items-center justify-between px-8 lg:px-14">
-          <Link to="/app" className="flex items-center gap-2 text-white hover:opacity-90">
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-lime">
+          <Link to="/app" className="flex items-center gap-2.5 text-white hover:opacity-90 transition-opacity">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lime shadow-glow">
               <BookOpen size={18} className="text-violet" />
             </div>
-            <span className="font-heading text-lg">StudySync</span>
+            <span className="font-heading text-lg font-semibold tracking-tight">StudySync</span>
           </Link>
           <div className="flex items-center gap-4">
             <button
@@ -69,10 +74,11 @@ export function AppLayout() {
           </div>
         </div>
       </header>
-      <main className="mx-auto max-w-6xl px-4 py-6 lg:px-8">
-        <Outlet />
+      <main className="mx-auto max-w-6xl px-4 py-8 lg:px-8">
+        <AnimatedOutlet />
       </main>
       <ProfileModal isOpen={profileOpen} onClose={() => setProfileOpen(false)} />
+      <Toaster />
     </div>
   );
 }

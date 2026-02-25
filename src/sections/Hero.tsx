@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Upload, FileText, Zap, BookOpen } from 'lucide-react';
+import { Upload, FileText, Zap, BookOpen, Sparkles, CircleDashed, WandSparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -14,122 +14,58 @@ interface HeroProps {
 export default function Hero({ onUploadClick }: HeroProps) {
   const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
+  const textRef = useRef<HTMLDivElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subheadRef = useRef<HTMLParagraphElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
+  const badgeRef = useRef<HTMLDivElement>(null);
   const illustrationRef = useRef<HTMLDivElement>(null);
-  const sparklesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Initial load animation
-      const loadTl = gsap.timeline();
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-      // Card entrance
-      loadTl.fromTo(
-        cardRef.current,
-        { y: '18vh', scale: 0.92, opacity: 0 },
-        { y: 0, scale: 1, opacity: 1, duration: 1, ease: 'power3.out' }
+      tl.fromTo(badgeRef.current,
+        { y: 10, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.95 },
+        0.15
       );
 
-      // Headline words stagger
       if (headlineRef.current) {
         const words = headlineRef.current.querySelectorAll('.word');
-        loadTl.fromTo(
-          words,
-          { y: 40, rotateX: 25, opacity: 0 },
-          { y: 0, rotateX: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: 'power3.out' },
-          '-=0.6'
-        );
+        gsap.set(words, { y: 20, opacity: 0 });
+        tl.to(words, { y: 0, opacity: 1, duration: 1.05, stagger: 0.06 }, 0.28);
       }
 
-      // Subheadline
-      loadTl.fromTo(
-        subheadRef.current,
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.7, ease: 'power3.out' },
+      tl.fromTo(subheadRef.current,
+        { y: 12, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.95 },
+        '-=0.6'
+      );
+
+      tl.fromTo(ctaRef.current,
+        { y: 9, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9 },
         '-=0.5'
       );
 
-      // CTA buttons
-      loadTl.fromTo(
-        ctaRef.current,
-        { y: 25, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6, ease: 'power3.out' },
-        '-=0.4'
+      tl.fromTo(illustrationRef.current,
+        { x: 20, opacity: 0, scale: 0.97 },
+        { x: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power3.out' },
+        '-=0.92'
       );
 
-      // Illustration
-      loadTl.fromTo(
-        illustrationRef.current,
-        { x: '10vw', rotateY: -18, opacity: 0 },
-        { x: 0, rotateY: 0, opacity: 1, duration: 1, ease: 'power3.out' },
-        '-=0.8'
-      );
-
-      // Sparkles
-      if (sparklesRef.current) {
-        const sparkles = sparklesRef.current.querySelectorAll('.sparkle-item');
-        loadTl.fromTo(
-          sparkles,
-          { scale: 0, rotate: -45, opacity: 0 },
-          { scale: 1, rotate: 0, opacity: 1, duration: 0.5, stagger: 0.06, ease: 'back.out(1.7)' },
-          '-=0.6'
-        );
-      }
-
-      // Scroll-driven exit animation
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=130%',
-          pin: true,
-          scrub: 0.6,
-          onLeaveBack: () => {
-            // Reset all elements when scrolling back to top
-            gsap.set(cardRef.current, { y: 0, scale: 1, opacity: 1 });
-            gsap.set(headlineRef.current, { x: 0, opacity: 1 });
-            gsap.set(illustrationRef.current, { x: 0, rotateY: 0, opacity: 1 });
-            if (sparklesRef.current) {
-              gsap.set(sparklesRef.current.querySelectorAll('.sparkle-item'), { scale: 1, rotate: 0, opacity: 1 });
-            }
-          }
-        }
+      gsap.to(textRef.current, {
+        y: -50,
+        ease: 'none',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top top', end: 'bottom top', scrub: true },
       });
 
-      // Exit animations (70% - 100%)
-      scrollTl.fromTo(
-        cardRef.current,
-        { y: 0, scale: 1, opacity: 1 },
-        { y: '-22vh', scale: 0.96, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      scrollTl.fromTo(
-        headlineRef.current,
-        { x: 0, opacity: 1 },
-        { x: '-10vw', opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      scrollTl.fromTo(
-        illustrationRef.current,
-        { x: 0, rotateY: 0, opacity: 1 },
-        { x: '12vw', rotateY: 12, opacity: 0, ease: 'power2.in' },
-        0.7
-      );
-
-      if (sparklesRef.current) {
-        scrollTl.fromTo(
-          sparklesRef.current.querySelectorAll('.sparkle-item'),
-          { scale: 1, rotate: 0, opacity: 1 },
-          { scale: 0.6, rotate: 25, opacity: 0, ease: 'power2.in' },
-          0.7
-        );
-      }
-
+      gsap.to(illustrationRef.current, {
+        y: -35,
+        ease: 'none',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top top', end: 'bottom top', scrub: true },
+      });
     }, sectionRef);
 
     return () => ctx.revert();
@@ -138,133 +74,128 @@ export default function Hero({ onUploadClick }: HeroProps) {
   const headlineWords = t.hero.headline.split(' ');
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full h-screen bg-violet overflow-hidden z-10"
-    >
-      {/* Blob gradient background */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="w-[120vw] h-[120vh] blob-gradient opacity-60" />
+    <section ref={sectionRef} className="relative w-full min-h-screen bg-transparent overflow-visible flex items-center pt-24 pb-24">
+      <div className="absolute inset-0 hero-grid pointer-events-none" aria-hidden />
+
+      <div className="absolute top-1/2 right-[6%] -translate-y-1/2 w-[760px] h-[760px] pointer-events-none" aria-hidden>
+        <div className="w-full h-full rounded-full" style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.11) 0%, rgba(34,197,94,0.035) 36%, transparent 62%)' }} />
       </div>
 
-      {/* Декор: книжки (главный экран) — z-0 чтобы всегда виден на фоне */}
-      <div ref={sparklesRef} className="absolute inset-0 pointer-events-none z-0">
-        <div className="sparkle-item absolute top-[15%] left-[8%] text-lime animate-sparkle opacity-75">
-          <BookOpen size={28} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[25%] right-[12%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '0.5s' }}>
-          <BookOpen size={22} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[20%] left-[15%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '1s' }}>
-          <BookOpen size={18} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[60%] right-[8%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '1.5s' }}>
-          <BookOpen size={24} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[30%] right-[20%] text-lime animate-sparkle opacity-75" style={{ animationDelay: '2s' }}>
-          <BookOpen size={16} fill="var(--lime)" />
-        </div>
-      </div>
-
-      {/* Main card — центрирование через flex */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-        <div
-          ref={cardRef}
-          className="pointer-events-auto w-[86vw] max-w-[1100px] h-[64vh] bg-surface rounded-[28px] card-shadow overflow-hidden"
-        >
-          <div className="flex h-full">
-          {/* Left content */}
-          <div className="flex-1 flex flex-col justify-center px-8 lg:px-12 py-8">
-            <h1
-              ref={headlineRef}
-              className="font-heading text-[clamp(28px,4vw,52px)] leading-[0.95] tracking-[-0.02em] text-violet mb-4"
-            >
-              {headlineWords.map((word, i) => (
-                <span key={i} className="word inline-block mr-[0.3em]">
-                  {word}
-                </span>
-              ))}
-            </h1>
-            
-            <p
-              ref={subheadRef}
-              className="font-body text-[clamp(15px,1.25vw,18px)] text-violet/90 leading-relaxed mb-8 max-w-[90%]"
-            >
-              {t.hero.subheadline}
-            </p>
-
-            <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 items-start">
-              <Button
-                onClick={onUploadClick}
-                className="bg-lime text-violet hover:bg-lime-dark font-label uppercase tracking-[0.08em] text-sm px-8 py-6 rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg"
-              >
-                <Upload className="mr-2" size={18} />
-                {t.hero.uploadNotes}
-              </Button>
-              <a
-                href="#how-it-works"
-                className="font-label uppercase tracking-[0.08em] text-sm border-2 border-violet text-violet hover:bg-violet/10 hover:border-violet rounded-xl px-6 py-3 transition-all duration-300 flex items-center shrink-0"
-              >
-                {t.hero.seeHowItWorks}
-              </a>
-            </div>
+      <div className="relative z-10 w-full max-w-[1480px] mx-auto px-6 lg:px-14 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8">
+        <div ref={textRef} className="max-w-xl lg:max-w-[640px]">
+          <div ref={badgeRef} className="badge-shimmer inline-flex items-center gap-2.5 rounded-full bg-white/[0.06] border border-white/[0.1] px-5 py-2 mb-9">
+            <Sparkles size={14} className="text-lime" />
+            <span className="font-label text-[11px] uppercase tracking-[0.14em] text-white/65">AI-powered study platform</span>
           </div>
 
-          {/* Right illustration */}
-          <div
-            ref={illustrationRef}
-            className="hidden lg:flex flex-1 items-center justify-center relative"
-            style={{ perspective: '1000px' }}
+          <h1
+            ref={headlineRef}
+            className="font-display text-[clamp(42px,5.2vw,76px)] leading-[1.02] text-white mb-8 headline-depth pb-3 overflow-visible max-w-[13ch]"
           >
-            <div className="relative w-full h-full flex items-center justify-center">
-              {/* 3D Notes Illustration */}
-              <div className="relative">
-                {/* Main document */}
-                <div className="relative bg-surface rounded-2xl shadow-card p-6 w-[280px] transform rotate-[-3deg] border border-violet/10">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 bg-lime rounded-lg flex items-center justify-center">
-                      <FileText size={16} className="text-violet" />
-                    </div>
-                    <div className="h-3 w-24 bg-violet/20 rounded" />
-                  </div>
-                  <div className="space-y-2">
-                    <div className="h-2 w-full bg-violet/10 rounded" />
-                    <div className="h-2 w-[90%] bg-violet/10 rounded" />
-                    <div className="h-2 w-[85%] bg-violet/10 rounded" />
-                    <div className="h-2 w-[95%] bg-violet/10 rounded" />
-                  </div>
-                  <div className="mt-4 flex items-center gap-2">
-                    <div className="h-2 w-16 bg-lime/50 rounded" />
-                    <div className="h-2 w-12 bg-violet/10 rounded" />
-                  </div>
-                </div>
+            {headlineWords.map((word, i) => (
+              <span key={i} className={`word inline-block mr-[0.16em] pb-[0.06em] ${i === headlineWords.length - 1 ? 'text-gradient-lime' : ''}`}>{word}</span>
+            ))}
+          </h1>
 
-                {/* Floating flashcard */}
-                <div className="absolute -top-8 -right-12 bg-lime rounded-xl p-4 w-[140px] shadow-card transform rotate-[8deg] animate-float">
-                  <div className="flex items-center gap-1 mb-2">
-                    <Zap size={14} className="text-violet" />
-                    <span className="text-[11px] font-label uppercase text-violet/90 font-medium">Flashcard</span>
-                  </div>
-                  <div className="h-2 w-full bg-violet/20 rounded mb-1" />
-                  <div className="h-2 w-[80%] bg-violet/20 rounded" />
-                </div>
+          <p ref={subheadRef} className="font-body text-[clamp(16px,1.4vw,20px)] text-white/65 leading-[1.75] mb-11 max-w-[88%]">
+            {t.hero.subheadline}
+          </p>
 
-                {/* Floating book */}
-                <div className="absolute -bottom-6 -left-8 bg-violet rounded-xl p-4 w-[120px] shadow-card transform rotate-[-5deg] animate-float" style={{ animationDelay: '1s' }}>
-                  <BookOpen size={24} className="text-lime mb-2" />
-                  <div className="h-2 w-full bg-white/20 rounded" />
-                </div>
+          <div ref={ctaRef} className="flex flex-col sm:flex-row gap-4 items-start">
+            <Button
+              onClick={onUploadClick}
+              className="btn-pill bg-lime text-violet hover:bg-lime-dark font-label font-semibold text-[15px] px-11 py-6 transition-[transform,box-shadow] duration-300 hover:shadow-[0_0_50px_-8px_rgba(34,197,94,0.3)] hover:-translate-y-0.5 active:scale-[0.97]"
+            >
+              <Upload className="mr-2.5" size={18} />
+              {t.hero.uploadNotes}
+            </Button>
+            <a
+              href="#how-it-works"
+              className="btn-pill font-label font-medium text-sm border border-white/15 text-white/75 hover:bg-white/[0.06] hover:border-white/30 hover:text-white rounded-full px-8 py-4 transition-[transform,box-shadow,background-color,border-color,color] duration-300 flex items-center"
+            >
+              {t.hero.seeHowItWorks}
+            </a>
+          </div>
+        </div>
 
-                {/* Highlight marker */}
-                <div className="absolute top-1/2 -right-4 bg-surface rounded-lg p-2 shadow-card transform rotate-[12deg]">
-                  <div className="w-3 h-12 bg-lime/60 rounded" />
-                </div>
+        <div
+          ref={illustrationRef}
+          className="relative hidden lg:flex items-center justify-center w-full max-w-[620px] min-h-[540px]"
+        >
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="w-[560px] h-[560px] rounded-full" style={{ background: 'radial-gradient(circle, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.028) 32%, transparent 56%)' }} />
+          </div>
+
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center orbit-spin">
+            <svg viewBox="0 0 500 500" className="w-[500px] h-[500px] opacity-45">
+              <circle cx="250" cy="250" r="185" fill="none" stroke="rgba(74,222,128,0.22)" strokeWidth="1.4" strokeDasharray="5 9" />
+              <circle cx="250" cy="250" r="210" fill="none" stroke="rgba(167,243,208,0.18)" strokeWidth="1.1" strokeDasharray="3 11" />
+              <circle cx="435" cy="250" r="5" fill="rgba(134,239,172,0.7)" />
+            </svg>
+          </div>
+
+          <div className="relative card-inner-light bg-[linear-gradient(160deg,rgba(22,52,36,0.96)_0%,rgba(12,34,24,0.95)_100%)] rounded-2xl shadow-[0_32px_80px_-16px_rgba(0,0,0,0.5)] p-8 w-[350px] border border-lime/20" style={{ transform: 'rotate(-1.4deg)' }}>
+            <div className="flex items-center gap-2.5 mb-5">
+              <div className="w-10 h-10 bg-lime/85 rounded-xl flex items-center justify-center shadow-sm"><FileText size={18} className="text-violet" /></div>
+              <div>
+                <div className="h-3 w-28 bg-white/16 rounded mb-1" />
+                <div className="h-2 w-18 bg-white/10 rounded" />
+              </div>
+            </div>
+            <div className="space-y-2.5">
+              <div className="h-2.5 w-full bg-white/14 rounded" />
+              <div className="h-2.5 w-[91%] bg-white/14 rounded" />
+              <div className="h-2.5 w-[83%] bg-white/12 rounded" />
+              <div className="h-2.5 w-[93%] bg-white/12 rounded" />
+              <div className="h-2.5 w-[74%] bg-white/10 rounded" />
+            </div>
+            <div className="mt-5 flex items-center gap-2.5">
+              <div className="h-8 w-24 bg-lime rounded-lg flex items-center justify-center shadow-sm">
+                <span className="text-[9px] font-label text-violet font-bold uppercase tracking-wider">Summary</span>
+              </div>
+              <div className="h-8 px-3 rounded-lg bg-white/7 border border-white/16 flex items-center gap-1.5">
+                <WandSparkles size={12} className="text-lime/80" />
+                <span className="text-[9px] font-label font-semibold uppercase tracking-[0.08em] text-white/72">AI refined</span>
               </div>
             </div>
           </div>
+
+          <div className="absolute -top-7 -right-2 card-inner-light bg-lime rounded-xl p-4 w-[160px] shadow-[0_20px_52px_-10px_rgba(0,0,0,0.38)] float-strong">
+            <div className="flex items-center gap-1.5 mb-2.5">
+              <Zap size={13} className="text-violet" />
+              <span className="text-[10px] font-label uppercase text-violet/75 font-bold tracking-wider">Flashcard</span>
+            </div>
+            <div className="h-2 w-full bg-violet/12 rounded mb-1.5" />
+            <div className="h-2 w-[68%] bg-violet/12 rounded" />
+          </div>
+
+          <div className="absolute -bottom-4 -left-8 card-inner-light bg-[#0b2b19] rounded-xl p-4 w-[140px] shadow-[0_20px_52px_-10px_rgba(0,0,0,0.4)] border border-lime/15 float-strong-book">
+            <BookOpen size={20} className="text-lime mb-2.5" />
+            <div className="h-2 w-full bg-white/10 rounded mb-1.5" />
+            <div className="h-2 w-[50%] bg-white/8 rounded" />
+          </div>
+
+          <div className="absolute top-[19%] -left-2 card-inner-light bg-[#133323] border border-lime/20 rounded-xl p-3.5 w-[128px] shadow-[0_18px_45px_-12px_rgba(0,0,0,0.38)]">
+            <div className="flex items-center gap-1.5 mb-2">
+              <CircleDashed size={13} className="text-lime/80" />
+              <span className="text-[9px] font-label uppercase tracking-[0.12em] text-lime/60">Pipeline</span>
+            </div>
+            <div className="h-1.5 w-full rounded bg-lime/20 mb-1.5" />
+            <div className="h-1.5 w-[72%] rounded bg-lime/35" />
+          </div>
+
+          <div className="absolute bottom-[20%] -right-8 card-inner-light bg-[#103221] border border-lime/20 rounded-xl p-3 w-[122px] shadow-[0_18px_45px_-12px_rgba(0,0,0,0.38)]">
+            <div className="flex items-center gap-1.5 mb-2">
+              <Sparkles size={12} className="text-lime/85" />
+              <span className="text-[9px] font-label uppercase tracking-[0.12em] text-lime/60">Quiz</span>
+            </div>
+            <div className="h-1.5 w-full rounded bg-white/12 mb-1.5" />
+            <div className="h-1.5 w-[62%] rounded bg-lime/30" />
           </div>
         </div>
       </div>
+
+      <div className="absolute bottom-0 left-0 right-0 section-divider" />
     </section>
   );
 }

@@ -36,7 +36,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[100] bg-black/50",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[100] bg-[radial-gradient(circle_at_22%_18%,rgba(16,185,129,0.18),transparent_38%),radial-gradient(circle_at_80%_72%,rgba(74,222,128,0.14),transparent_42%),rgba(3,10,7,0.66)] backdrop-blur-md",
         className
       )}
       {...props}

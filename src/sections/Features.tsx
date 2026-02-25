@@ -1,10 +1,16 @@
 import { useEffect, useRef, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { FileText, Layers, HelpCircle, ArrowRight, BookOpen } from 'lucide-react';
+import { FileText, Layers, HelpCircle, ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CARD_STYLES = [
+  { iconGradient: 'from-emerald-500/30 to-emerald-600/10', iconWrap: 'bg-white/[0.04]' },
+  { iconGradient: 'from-green-400/26 to-green-500/8', iconWrap: 'bg-white/[0.06]' },
+  { iconGradient: 'from-lime-400/28 to-lime-500/9', iconWrap: 'bg-white/[0.05]' },
+];
 
 export default function Features() {
   const { t } = useLanguage();
@@ -22,144 +28,83 @@ export default function Features() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const scrollTl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=140%',
-          pin: true,
-          scrub: 0.6,
-        }
-      });
-
-      // Heading entrance (0% - 30%)
-      scrollTl.fromTo(
-        headingRef.current,
-        { y: '-18vh', opacity: 0 },
-        { y: 0, opacity: 1, ease: 'none' },
-        0
-      );
-
-      // Карточки: все три должны закончить вход к одному моменту, чтобы правая не «не доезжала»
-      if (cardsRef.current) {
-        const cards = cardsRef.current.querySelectorAll('.feature-card');
-        const duration = 0.2;
-        const starts = [0, 0.05, 0.1]; // все приходят к 0.2, 0.25, 0.3
-        cards.forEach((card, i) => {
-          scrollTl.fromTo(
-            card,
-            { x: '50vw', rotateY: -18, opacity: 0 },
-            { x: 0, rotateY: 0, opacity: 1, ease: 'none', duration },
-            starts[i]
-          );
-        });
+      if (headingRef.current) {
+        gsap.fromTo(headingRef.current,
+          { y: 18, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.0, ease: 'power2.out',
+            scrollTrigger: { trigger: headingRef.current, start: 'top 85%', once: true } }
+        );
       }
-
-      // Exit phase (70% - 100%)
-      scrollTl.fromTo(
-        headingRef.current,
-        { y: 0, opacity: 1 },
-        { y: '-10vh', opacity: 0, ease: 'power2.in' },
-        0.7
-      );
 
       if (cardsRef.current) {
         const cards = cardsRef.current.querySelectorAll('.feature-card');
-        cards.forEach((card) => {
-          scrollTl.fromTo(
-            card,
-            { x: 0, rotateY: 0, opacity: 1 },
-            { x: '-18vw', rotateY: 14, opacity: 0, ease: 'power2.in' },
-            0.7
-          );
-        });
+        gsap.fromTo(cards,
+          { y: 22, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.9, ease: 'power2.out', stagger: 0.15,
+            scrollTrigger: { trigger: cardsRef.current, start: 'top 88%', once: true } }
+        );
       }
-
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section
-      ref={sectionRef}
-      id="features"
-      className="relative w-full h-screen bg-violet overflow-hidden z-30"
-    >
-      {/* Декор: книжки (возможности) — z-0 чтобы точно был виден на фоне */}
-      <div className="absolute inset-0 pointer-events-none z-0">
-        <div className="sparkle-item absolute top-[12%] left-[6%] text-lime opacity-75 animate-sparkle">
-          <BookOpen size={28} fill="var(--lime)" />
+    <section ref={sectionRef} id="features" className="relative w-full bg-transparent py-28 lg:py-40">
+      <div className="absolute top-0 left-1/4 section-glow opacity-35" />
+      <div className="absolute -top-12 right-[12%] w-44 h-44 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.2) 0%, rgba(74,222,128,0.02) 55%, transparent 70%)' }} />
+      <div className="absolute bottom-10 left-[10%] w-52 h-36 pointer-events-none opacity-35" style={{ backgroundImage: 'radial-gradient(circle, rgba(167,243,208,0.9) 1px, transparent 1px)', backgroundSize: '14px 14px', maskImage: 'radial-gradient(circle at center, rgba(0,0,0,0.85), transparent 75%)' }} />
+
+      <div className="relative z-10 w-full max-w-[1200px] mx-auto px-6 lg:px-14">
+        <div ref={headingRef} className="text-center mb-16">
+          <span className="font-label uppercase tracking-[0.16em] text-[11px] text-lime/60 mb-4 block">
+            {t.features.label}
+          </span>
+          <h2 className="font-display text-[clamp(34px,4.5vw,60px)] leading-[1.05] text-white max-w-2xl mx-auto headline-depth pb-1 overflow-visible">
+            {t.features.heading}
+          </h2>
         </div>
-        <div className="sparkle-item absolute top-[22%] right-[10%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.4s' }}>
-          <BookOpen size={22} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[18%] left-[8%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '0.8s' }}>
-          <BookOpen size={20} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute top-[55%] right-[6%] text-lime opacity-75 animate-sparkle" style={{ animationDelay: '1.2s' }}>
-          <BookOpen size={24} fill="var(--lime)" />
-        </div>
-        <div className="sparkle-item absolute bottom-[28%] right-[12%] text-lime opacity-75">
-          <BookOpen size={18} fill="var(--lime)" />
+
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-7 items-start">
+          {features.map((feature, index) => {
+            const style = CARD_STYLES[index];
+            return (
+              <div
+                key={index}
+                className="feature-card card-inner-light group rounded-2xl bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.03)_100%)] border border-white/[0.12] p-7 lg:p-8 flex flex-col transition-[transform,box-shadow,background-color,border-color] duration-300 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.045)_100%)] hover:border-lime/30 hover:-translate-y-2 hover:shadow-[0_28px_64px_-14px_rgba(0,0,0,0.4)]"
+              >
+                <div className={`feature-card-icon ${style.iconWrap} bg-gradient-to-br ${style.iconGradient} rounded-xl flex items-center justify-center mb-7 border border-lime/20 transition-transform duration-300`} style={{ width: 52, height: 52 }}>
+                  <feature.icon size={23} className="text-lime" />
+                </div>
+                <h3 className="font-heading text-[clamp(18px,1.4vw,22px)] font-semibold text-white mb-3 leading-tight">
+                  {feature.title}
+                </h3>
+                <p className="font-body text-[15px] text-white/60 leading-[1.7] mb-3 flex-1">
+                  {feature.description}
+                </p>
+                <div className="mb-7 rounded-xl border border-white/10 bg-white/[0.03] px-3.5 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="font-label text-[10px] uppercase tracking-[0.1em] text-lime/72">Feature focus</span>
+                    <span className="px-2 py-1 rounded-full text-[9px] font-label uppercase tracking-[0.08em] text-lime/82 bg-lime/10 border border-lime/20">
+                      {index === 0 ? 'Summary' : index === 1 ? 'Flashcards' : 'Quiz'}
+                    </span>
+                  </div>
+                  <p className="font-body text-[12px] text-white/45 leading-relaxed mt-2.5">{feature.detail}</p>
+                </div>
+                <a
+                  href="#demo"
+                  className="flex items-center gap-2 font-label uppercase tracking-[0.1em] text-[11px] font-medium text-lime/70 group-hover:text-lime group-hover:gap-3.5 transition-[color,gap] duration-300"
+                >
+                  {t.features.learnMore}
+                  <ArrowRight size={13} className="feature-card-arrow transition-transform duration-300" />
+                </a>
+              </div>
+            );
+          })}
         </div>
       </div>
 
-      {/* Heading */}
-      <div
-        ref={headingRef}
-        className="absolute top-[10vh] left-1/2 -translate-x-1/2 text-center w-[min(52vw,720px)] z-10"
-      >
-        <span className="font-label uppercase tracking-[0.08em] text-sm text-white/60 mb-4 block">
-          {t.features.label}
-        </span>
-        <h2 className="font-heading text-[clamp(32px,4vw,56px)] leading-[1.0] text-white">
-          {t.features.heading}
-        </h2>
-      </div>
-
-      {/* Feature cards */}
-      <div
-        ref={cardsRef}
-        className="absolute top-[30vh] left-[6vw] right-[6vw] w-[88vw] h-[56vh] flex gap-[3vw] items-start justify-center z-10"
-        style={{ perspective: '1000px' }}
-      >
-        {features.map((feature, index) => (
-          <div
-            key={index}
-            className="feature-card flex-1 min-w-0 max-w-[360px] h-full bg-surface rounded-[28px] p-6 lg:p-8 flex flex-col transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] group shadow-[0_20px_60px_-15px_rgba(5,46,22,0.3)]"
-          >
-            {/* Icon */}
-            <div className="w-12 h-12 bg-lime/20 rounded-xl flex items-center justify-center mb-6 shrink-0">
-              <feature.icon size={24} className="text-lime" />
-            </div>
-
-            {/* Title */}
-            <h3 className="font-heading text-[clamp(18px,1.5vw,24px)] text-violet mb-3 shrink-0">
-              {feature.title}
-            </h3>
-
-            {/* Description */}
-            <p className="font-body text-[15px] text-violet/90 leading-relaxed mb-4 flex-1 min-h-0">
-              {feature.description}
-            </p>
-
-            {/* Context line */}
-            <p className="font-body text-sm text-violet/80 mb-6">
-              {feature.detail}
-            </p>
-
-            {/* CTA Link */}
-            <a
-              href="#demo"
-              className="flex items-center gap-2 font-label uppercase tracking-[0.08em] text-xs text-lime group-hover:gap-3 transition-all shrink-0"
-            >
-              {t.features.learnMore}
-              <ArrowRight size={14} />
-            </a>
-          </div>
-        ))}
-      </div>
+      <div className="absolute bottom-0 left-0 right-0 section-divider" />
     </section>
   );
 }

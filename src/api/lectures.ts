@@ -13,12 +13,21 @@ export async function apiGetProjectLectures(projectId: string | number): Promise
   return data;
 }
 
-export async function apiCreateLecture(projectId: string | number, title: string, files: File[]): Promise<LectureDto> {
+const CREATE_LECTURE_TIMEOUT_MS = 120_000;
+
+export async function apiCreateLecture(
+  projectId: string | number,
+  title: string,
+  files: File[],
+  options?: { signal?: AbortSignal }
+): Promise<LectureDto> {
   const formData = new FormData();
   formData.append('title', title);
   files.forEach((f) => formData.append('files', f));
-  // Не задаём Content-Type — браузер сам выставит multipart/form-data с boundary.
-  const { data } = await http.post<LectureDto>(`/projects/${projectId}/lectures`, formData);
+  const { data } = await http.post<LectureDto>(`/projects/${projectId}/lectures`, formData, {
+    timeout: CREATE_LECTURE_TIMEOUT_MS,
+    signal: options?.signal,
+  });
   return data;
 }
 

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,8 +38,15 @@ export function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-violet px-4">
-      <div className="w-full max-w-[420px] rounded-[28px] bg-surface p-8 shadow-[0_24px_60px_-12px_rgba(5,46,22,0.35)]">
+    <div className="relative flex min-h-screen items-center justify-center bg-violet-dark px-4">
+      <div className="absolute inset-0 pointer-events-none bg-depth-drift opacity-[0.08]" aria-hidden />
+      <motion.div
+        className="relative flex min-h-screen w-full items-center justify-center px-4"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+      >
+      <div className="w-full max-w-[420px] rounded-3xl bg-surface p-8 shadow-[0_28px_64px_-16px_rgba(0,0,0,0.35)] border border-white/10">
         <div className="mb-8 flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-lime/20">
             <BookOpen size={24} className="text-lime" />
@@ -85,6 +93,7 @@ export function LoginPage() {
           </Button>
         </form>
       </div>
+      </motion.div>
     </div>
   );
 }

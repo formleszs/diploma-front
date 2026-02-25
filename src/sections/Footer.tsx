@@ -53,7 +53,7 @@ export default function Footer() {
   return (
     <footer
       ref={footerRef}
-      className="relative w-full bg-violet pt-[8vh] pb-[6vh] z-[70]"
+      className="relative w-full bg-violet-dark pt-[8vh] pb-[6vh] border-t border-white/5"
     >
       <div
         ref={contentRef}
