@@ -87,11 +87,11 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-w-[420px] p-0 border-0 overflow-hidden !bg-surface rounded-[24px] shadow-[0_24px_60px_-12px_rgba(5,46,22,0.35)]">
-        <DialogHeader className="p-6 pb-4 border-b border-violet/10">
-          <DialogTitle className="font-heading text-2xl text-violet flex items-center gap-3">
-            <div className="w-10 h-10 bg-lime/20 rounded-xl flex items-center justify-center">
-              <User size={20} className="text-lime" />
+      <DialogContent className="max-w-[420px] p-0 overflow-hidden rounded-2xl border border-white/15 bg-[linear-gradient(160deg,rgba(14,43,28,0.94)_0%,rgba(8,30,20,0.94)_100%)] shadow-[0_34px_80px_-18px_rgba(0,0,0,0.55)] backdrop-blur-xl">
+        <DialogHeader className="p-6 pb-4 border-b border-white/12 bg-[linear-gradient(180deg,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.01)_100%)]">
+          <DialogTitle className="font-heading text-2xl text-white flex items-center gap-3">
+            <div className="w-10 h-10 bg-lime/25 rounded-xl flex items-center justify-center border border-lime/25 shadow-[0_0_20px_rgba(74,222,128,0.22)]">
+              <User size={20} className="text-violet" />
             </div>
             Профиль
           </DialogTitle>
@@ -100,7 +100,7 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
         <div className="p-6 space-y-6">
           <div className="flex flex-col items-center gap-3">
             <label className="relative cursor-pointer">
-              <div className="h-24 w-24 rounded-full overflow-hidden bg-violet/10 border-2 border-violet/20 flex items-center justify-center text-2xl font-heading text-violet">
+              <div className="h-24 w-24 rounded-full overflow-hidden bg-white/[0.05] border-2 border-white/18 flex items-center justify-center text-2xl font-heading text-white shadow-[0_10px_28px_-10px_rgba(0,0,0,0.45)]">
                 {src ? (
                   <img src={src} alt="" className="h-full w-full object-cover" />
                 ) : (
@@ -114,33 +114,37 @@ export default function ProfileModal({ isOpen, onClose }: ProfileModalProps) {
                 onChange={handleAvatarChange}
                 disabled={uploading}
               />
-              <span className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-lime text-violet">
+              <span className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full bg-[linear-gradient(135deg,#86efac_0%,#4ade80_100%)] text-violet border border-lime/50 shadow-[0_0_24px_-8px_rgba(74,222,128,0.8)]">
                 <Camera size={16} />
               </span>
             </label>
-            {uploading && <p className="font-body text-sm text-violet/70">Загрузка...</p>}
+            {uploading && <p className="font-body text-sm text-white/70">Загрузка...</p>}
           </div>
 
           <form onSubmit={handleSubmitName} className="space-y-3">
-            <label className="block font-label uppercase tracking-[0.08em] text-xs text-violet/80">
+            <label className="block font-label uppercase tracking-[0.08em] text-xs text-white/75">
               Отображаемое имя
             </label>
             <div className="flex gap-2">
               <Input
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value.slice(0, MAX_DISPLAY_NAME_LENGTH))}
-                className="h-12 flex-1 rounded-xl border-violet/15 bg-violet/5 text-violet"
+                className="h-12 flex-1 rounded-xl bg-white/[0.07] border border-white/18 font-body text-white placeholder:text-white/45 focus-visible:ring-2 focus-visible:ring-lime/50 focus-visible:border-lime/35 shadow-inner shadow-black/10 transition-[box-shadow,border-color,background-color]"
                 maxLength={MAX_DISPLAY_NAME_LENGTH}
               />
-              <Button type="submit" disabled={saving} className="rounded-xl bg-lime text-violet hover:bg-lime-dark">
+              <Button
+                type="submit"
+                disabled={saving}
+                className="rounded-xl bg-[linear-gradient(135deg,#86efac_0%,#4ade80_100%)] text-violet hover:brightness-95 border border-lime/50 shadow-[0_0_36px_-10px_rgba(74,222,128,0.7)]"
+              >
                 {saving ? 'Сохранение...' : 'Сохранить'}
               </Button>
             </div>
-            <p className="font-body text-xs text-violet/60">{displayName.length}/{MAX_DISPLAY_NAME_LENGTH}</p>
+            <p className="font-body text-xs text-white/55">{displayName.length}/{MAX_DISPLAY_NAME_LENGTH}</p>
             {error && <p className="font-body text-sm text-red-400">{error}</p>}
           </form>
 
-          <p className="font-body text-sm text-violet/70">{user.email}</p>
+          <p className="font-body text-sm text-white/72">{user.email}</p>
         </div>
       </DialogContent>
     </Dialog>

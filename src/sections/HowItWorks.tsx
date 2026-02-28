@@ -57,11 +57,11 @@ export default function HowItWorks() {
       />
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-14 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-14 lg:gap-24">
-        <div ref={headingRef} className="lg:w-[38%] max-w-md">
+        <div ref={headingRef} className="lg:w-[42%] max-w-none">
           <span className="step-label font-label uppercase tracking-[0.16em] text-[11px] text-lime/60 mb-3 block">
             {t.howItWorks.label}
           </span>
-          <h2 className="step-heading font-display text-[clamp(34px,4.5vw,60px)] leading-[1.05] text-white mb-7 headline-depth pb-1 overflow-visible">
+          <h2 className="step-heading font-display text-[clamp(34px,4vw,56px)] leading-[1.05] text-white mb-7 headline-depth pb-1 overflow-visible md:whitespace-nowrap">
             {t.howItWorks.heading}
           </h2>
           <p className="step-tagline font-body text-[clamp(15px,1.2vw,18px)] text-white/55 leading-[1.75]">

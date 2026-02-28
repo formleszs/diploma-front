@@ -60,7 +60,7 @@ export default function Features() {
           <span className="font-label uppercase tracking-[0.16em] text-[11px] text-lime/60 mb-4 block">
             {t.features.label}
           </span>
-          <h2 className="font-display text-[clamp(34px,4.5vw,60px)] leading-[1.05] text-white max-w-2xl mx-auto headline-depth pb-1 overflow-visible">
+          <h2 className="font-display text-[clamp(34px,4.5vw,60px)] leading-[1.05] text-white mx-auto max-w-2xl md:max-w-none md:whitespace-nowrap headline-depth pb-1 overflow-visible">
             {t.features.heading}
           </h2>
         </div>
@@ -73,12 +73,14 @@ export default function Features() {
                 key={index}
                 className="feature-card card-inner-light group rounded-2xl bg-[linear-gradient(180deg,rgba(255,255,255,0.07)_0%,rgba(255,255,255,0.03)_100%)] border border-white/[0.12] p-7 lg:p-8 flex flex-col transition-[transform,box-shadow,background-color,border-color] duration-300 hover:bg-[linear-gradient(180deg,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0.045)_100%)] hover:border-lime/30 hover:-translate-y-2 hover:shadow-[0_28px_64px_-14px_rgba(0,0,0,0.4)]"
               >
-                <div className={`feature-card-icon ${style.iconWrap} bg-gradient-to-br ${style.iconGradient} rounded-xl flex items-center justify-center mb-7 border border-lime/20 transition-transform duration-300`} style={{ width: 52, height: 52 }}>
-                  <feature.icon size={23} className="text-lime" />
+                <div className="flex items-center gap-4 mb-6 min-h-[52px]">
+                  <div className={`feature-card-icon ${style.iconWrap} bg-gradient-to-br ${style.iconGradient} rounded-xl flex items-center justify-center border border-lime/20 transition-transform duration-300 shrink-0`} style={{ width: 52, height: 52 }}>
+                    <feature.icon size={23} className="text-lime" />
+                  </div>
+                  <h3 className="font-heading text-[clamp(18px,1.35vw,21px)] font-semibold text-white leading-tight">
+                    {feature.title}
+                  </h3>
                 </div>
-                <h3 className="font-heading text-[clamp(18px,1.4vw,22px)] font-semibold text-white mb-3 leading-tight">
-                  {feature.title}
-                </h3>
                 <p className="font-body text-[15px] text-white/60 leading-[1.7] mb-3 flex-1">
                   {feature.description}
                 </p>

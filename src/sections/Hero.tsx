@@ -71,7 +71,7 @@ export default function Hero({ onUploadClick }: HeroProps) {
     return () => ctx.revert();
   }, []);
 
-  const headlineWords = t.hero.headline.split(' ');
+  const headlineLines = t.hero.headline.split('\n');
 
   return (
     <section ref={sectionRef} className="relative w-full min-h-screen bg-transparent overflow-visible flex items-center pt-24 pb-24">
@@ -92,8 +92,13 @@ export default function Hero({ onUploadClick }: HeroProps) {
             ref={headlineRef}
             className="font-display text-[clamp(42px,5.2vw,76px)] leading-[1.02] text-white mb-8 headline-depth pb-3 overflow-visible max-w-[13ch]"
           >
-            {headlineWords.map((word, i) => (
-              <span key={i} className={`word inline-block mr-[0.16em] pb-[0.06em] ${i === headlineWords.length - 1 ? 'text-gradient-lime' : ''}`}>{word}</span>
+            {headlineLines.map((line, i) => (
+              <span
+                key={i}
+                className={`word block pb-[0.08em] ${i === headlineLines.length - 1 ? 'text-gradient-lime' : ''}`}
+              >
+                {line}
+              </span>
             ))}
           </h1>
 
